@@ -1,0 +1,149 @@
+---
+import Base from "../layouts/Base.astro";
+import Drop from "../components/Drop.astro";
+import { site } from "../data/site";
+
+const services = [
+  "Repair",
+  "24-hour emergency",
+  "Drain cleaning",
+  "Hydro jetting",
+  "Sewer camera inspection",
+  "Sewer or house trap",
+  "Remodel or new construction",
+  "Water heater or combi boiler",
+  "Water service line",
+  "Well filtration",
+  "Waterproofing",
+  "Commercial",
+  "Not sure yet",
+];
+---
+
+<Base
+  title="Contact"
+  description="Call Coulehan Plumbing LLC at (412) 513-9335 or email coulehanplumbing@gmail.com. Request a quote for plumbing in Pittsburgh, PA 15226."
+>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow"><Drop size={16} /> Contact</p>
+      <h1>Call Jerry, or send a note.</h1>
+      <p class="lede">
+        The fastest way to reach Coulehan Plumbing is the phone. The form is
+        here for the layout. It does not send yet.
+      </p>
+    </div>
+  </header>
+
+  <section class="section" style="padding-top: 1rem">
+    <div class="container split">
+      <div>
+        <aside class="todo">
+          <p>
+            <strong>TODO: wire this form to a lead endpoint.</strong>
+            Submissions are not delivered. The preview checks the fields, then
+            stops. Until that endpoint exists, call or email.
+          </p>
+        </aside>
+        <form id="quote-form" class="form" action="/contact/#quote-form" method="post" novalidate>
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div>
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div>
+            <label for="service">Service</label>
+            <select id="service" name="service" required>
+              <option value="">Choose a service</option>
+              {services.map((service) => <option value={service}>{service}</option>)}
+            </select>
+          </div>
+          <div>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required minlength="10" maxlength="2000"></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Request a quote</button>
+          <p id="form-errors" class="field-error" role="alert" hidden></p>
+        </form>
+        <div id="form-result" class="note" role="status" hidden>
+          <p>
+            <strong>Nothing was sent.</strong>
+            This preview form has no endpoint yet. Call
+            <a href={`tel:${site.phoneTel}`}>{site.phoneDisplay}</a>
+            or email
+            <a href={`mailto:${site.email}`}>{site.email}</a>.
+          </p>
+        </div>
+      </div>
+      <div>
+        <ul class="contact-list">
+          <li>
+            <a href={`tel:${site.phoneTel}`}>{site.phoneDisplay}</a>
+          </li>
+          <li>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </li>
+          <li>{site.addressLine}</li>
+        </ul>
+        <aside class="todo">
+          <p>
+            <strong>TODO — hours.</strong> Facebook says “Always open.” The
+            current website shows 8am–5pm in an hours block that is broken, and
+            it also advertises 24-hour emergency service. Do not treat either
+            clock as confirmed.
+          </p>
+        </aside>
+        <iframe
+          class="map-frame"
+          title="Map of the Pittsburgh 15226 area, including Brookline"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-80.08%2C40.36%2C-79.96%2C40.43&amp;layer=mapnik"
+          loading="lazy"
+        ></iframe>
+        <p class="fine">
+          Pittsburgh 15226, the Brookline area. No map pin until a street
+          address is confirmed.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.querySelector("#quote-form");
+  const errors = document.querySelector("#form-errors");
+  const result = document.querySelector("#form-result");
+  if (form instanceof HTMLFormElement && errors instanceof HTMLElement && result instanceof HTMLElement) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      errors.hidden = true;
+      result.hidden = true;
+      const data = new FormData(form);
+      const name = String(data.get("name") ?? "").trim();
+      const phone = String(data.get("phone") ?? "").replace(/\D/g, "");
+      const email = String(data.get("email") ?? "").trim();
+      const service = String(data.get("service") ?? "").trim();
+      const message = String(data.get("message") ?? "").trim();
+      const problems: string[] = [];
+      if (!name) problems.push("Add your name.");
+      if (phone.length < 10) problems.push("Add a phone number with area code.");
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) problems.push("Add a valid email.");
+      if (!service) problems.push("Choose a service.");
+      if (message.length < 10) problems.push("Add a short message (at least 10 characters).");
+      if (problems.length) {
+        errors.hidden = false;
+        errors.textContent = problems.join(" ");
+        return;
+      }
+      result.hidden = false;
+      result.focus?.();
+      form.reset();
+    });
+  }
+</script>

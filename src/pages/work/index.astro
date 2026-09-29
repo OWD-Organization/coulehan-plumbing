@@ -1,0 +1,83 @@
+---
+import Base from "../../layouts/Base.astro";
+import Drop from "../../components/Drop.astro";
+import JobCard from "../../components/JobCard.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { categories, jobs } from "../../data/jobs";
+---
+
+<Base
+  title="Examples of My Work"
+  description="Examples of My Work from Coulehan Plumbing LLC: real Pittsburgh plumbing jobs, with Jerry Coulehan’s descriptions and photos from the work."
+>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow"><Drop size={16} /> Pittsburgh jobs</p>
+      <h1>Examples of My Work</h1>
+      <p class="lede">
+        Seventeen jobs from Jerry’s Facebook page, December 2024 through
+        September 2026. The words are his, cleaned up for typos only. The photos
+        are from the jobs. Four posts were video only, and those link out to
+        Facebook.
+      </p>
+      <div class="filters" role="group" aria-label="Filter jobs by type">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        {
+          categories.map((category) => (
+            <button type="button" data-filter={category.slug} aria-pressed="false">
+              {category.label}
+            </button>
+          ))
+        }
+      </div>
+      <p id="result-count" class="result-count" aria-live="polite">
+        Showing {jobs.length} of {jobs.length}
+      </p>
+    </div>
+  </header>
+
+  <section class="section" style="padding-top: 0">
+    <div class="container">
+      <div class="job-grid" id="job-grid">
+        {jobs.map((job) => <JobCard job={job} heading="h2" />)}
+      </div>
+      <p id="empty-state" class="note" hidden>No stories in this category.</p>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+
+<script>
+  const buttons = [...document.querySelectorAll<HTMLButtonElement>("[data-filter]")];
+  const cards = [...document.querySelectorAll<HTMLElement>(".job-card")];
+  const count = document.querySelector("#result-count");
+  const empty = document.querySelector("#empty-state");
+
+  function apply(filter: string) {
+    let shown = 0;
+    for (const card of cards) {
+      const cats = (card.dataset.cats ?? "").split(" ").filter(Boolean);
+      const match = filter === "all" || cats.includes(filter);
+      card.hidden = !match;
+      if (match) shown += 1;
+    }
+    if (count) count.textContent = `Showing ${shown} of ${cards.length}`;
+    if (empty instanceof HTMLElement) empty.hidden = shown !== 0;
+    for (const button of buttons) {
+      button.setAttribute("aria-pressed", button.dataset.filter === filter ? "true" : "false");
+    }
+    const url = new URL(window.location.href);
+    if (filter === "all") url.searchParams.delete("type");
+    else url.searchParams.set("type", filter);
+    history.replaceState(null, "", url);
+  }
+
+  for (const button of buttons) {
+    button.addEventListener("click", () => apply(button.dataset.filter ?? "all"));
+  }
+
+  const initial = new URLSearchParams(window.location.search).get("type");
+  if (initial && buttons.some((button) => button.dataset.filter === initial)) {
+    apply(initial);
+  }
+</script>

@@ -1,0 +1,62 @@
+---
+import manifest from "../data/manifest.json";
+
+interface Variant {
+  w: number;
+  h: number;
+}
+
+interface Props {
+  group: string;
+  id: string;
+  alt: string;
+  sizes?: string;
+  loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "low" | "auto";
+  class?: string;
+}
+
+const {
+  group,
+  id,
+  alt,
+  sizes = "100vw",
+  loading = "lazy",
+  fetchpriority = "auto",
+  class: className,
+} = Astro.props;
+
+const groups = manifest as Record<string, Record<string, { variants: Variant[] }>>;
+const key = group.startsWith("jobs/") ? group.slice("jobs/".length) : group;
+const entry = groups[key]?.[id];
+if (!entry) {
+  throw new Error(`Missing optimized photo: ${group}/${id}`);
+}
+
+const variants = [...entry.variants].sort((a, b) => a.w - b.w);
+const largest = variants[variants.length - 1];
+const fallback = variants.find((item) => item.w >= 720) ?? variants[0];
+
+function srcset(ext: string) {
+  return variants
+    .map((item) => `/media/${group}/${id}-${item.w}.${ext} ${item.w}w`)
+    .join(", ");
+}
+---
+
+<picture>
+  <source type="image/avif" srcset={srcset("avif")} sizes={sizes} />
+  <source type="image/webp" srcset={srcset("webp")} sizes={sizes} />
+  <img
+    class={className}
+    src={`/media/${group}/${id}-${fallback.w}.jpg`}
+    srcset={srcset("jpg")}
+    sizes={sizes}
+    alt={alt}
+    width={largest.w}
+    height={largest.h}
+    loading={loading}
+    decoding="async"
+    fetchpriority={fetchpriority}
+  />
+</picture>

@@ -1,0 +1,75 @@
+---
+import Photo from "./Photo.astro";
+import { nav, site } from "../data/site";
+
+const path = Astro.url.pathname;
+
+function current(href: string) {
+  if (href === "/") return path === "/" ? "page" : undefined;
+  return path.startsWith(href) ? "page" : undefined;
+}
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a class="brand" href="/">
+      <Photo
+        group="brand"
+        id="mark"
+        alt=""
+        sizes="52px"
+        loading="eager"
+        fetchpriority="low"
+      />
+      <span class="brand-name">
+        <span>Coulehan</span>
+        <span>Plumbing</span>
+      </span>
+    </a>
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+    >
+      Menu
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Primary">
+      {
+        nav.map((item) => (
+          <a href={item.href} aria-current={current(item.href)}>
+            {item.label}
+          </a>
+        ))
+      }
+      <a class="nav-phone" href={`tel:${site.phoneTel}`}>
+        Call {site.phoneDisplay}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector(".site-header");
+  const toggle = document.querySelector(".nav-toggle");
+  const navEl = document.querySelector("#site-nav");
+  if (header && toggle && navEl) {
+    const close = () => {
+      header.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.textContent = "Menu";
+    };
+    toggle.addEventListener("click", () => {
+      const open = header.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.textContent = open ? "Close" : "Menu";
+    });
+    navEl.addEventListener("click", (event) => {
+      const target = event.target;
+      if (target instanceof HTMLElement && target.closest("a")) close();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") close();
+    });
+  }
+</script>

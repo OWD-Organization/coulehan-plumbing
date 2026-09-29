@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+uploads/
+*.tar.gz
+*.tgz
+.DS_Store
+*.log
