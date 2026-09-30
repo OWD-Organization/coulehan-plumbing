@@ -8,11 +8,13 @@ interface Props {
   title: string;
   description: string;
   documentTitle?: string;
+  /** Replaces the default Plumber JSON-LD. Must not include a street address. */
+  jsonLd?: object;
 }
 
 const { title, description, documentTitle } = Astro.props;
 const fullTitle = documentTitle ?? `${title} | ${site.name}`;
-const jsonLd = plumberJsonLd(Astro.site?.href ?? site.website);
+const jsonLd = Astro.props.jsonLd ?? plumberJsonLd(Astro.site?.href ?? site.website);
 ---
 
 <!doctype html>

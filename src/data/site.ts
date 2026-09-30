@@ -1,3 +1,7 @@
+import { towns, type Town } from "./towns";
+
+export { towns };
+
 export const site = {
   name: "Coulehan Plumbing LLC",
   /** Wordmark and other display uses. The legal name stays in copyright and JSON-LD. */
@@ -45,22 +49,7 @@ export const servicePages = [
   { href: "/services/water-filtration/", label: "Water Filtration" },
 ] as const;
 
-export const serviceTowns = [
-  "Brookline",
-  "Beechview",
-  "Banksville",
-  "Carrick",
-  "Overbrook",
-  "Baldwin",
-  "Brentwood",
-  "Whitehall",
-  "Dormont",
-  "Mt. Lebanon",
-  "Castle Shannon",
-  "Bethel Park",
-  "Upper St. Clair",
-  "Peters Township",
-] as const;
+export const serviceTowns = towns.map((town) => town.name);
 
 /** Overview sections that do not have a page of their own. */
 export const moreServices = [
@@ -123,5 +112,19 @@ export function plumberJsonLd(origin: string) {
       "Kitchen remodel plumbing",
       "Basement waterproofing",
     ],
+  };
+}
+
+/** Same business record, with areaServed limited to one listed town. No street address. */
+export function townPlumberJsonLd(origin: string, town: Town) {
+  const pageUrl = new URL(`/service-area/${town.slug}/`, site.website).href;
+  return {
+    ...plumberJsonLd(origin),
+    mainEntityOfPage: pageUrl,
+    areaServed: {
+      "@type": "City",
+      name: town.name,
+    },
+    description: town.description,
   };
 }

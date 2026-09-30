@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Drop from "../components/Drop.astro";
 import CtaBand from "../components/CtaBand.astro";
-import { serviceTowns } from "../data/site";
+import { towns } from "../data/site";
 import { serviceAreaPolygon } from "../data/service-area";
 ---
 
@@ -25,7 +25,13 @@ import { serviceAreaPolygon } from "../data/service-area";
     <div class="container">
       <h2>Towns we serve</h2>
       <ul class="area-list">
-        {serviceTowns.map((town) => <li>{town}</li>)}
+        {
+          towns.map((town) => (
+            <li>
+              <a href={`/service-area/${town.slug}/`}>{town.name}</a>
+            </li>
+          ))
+        }
       </ul>
       <div
         id="service-map"

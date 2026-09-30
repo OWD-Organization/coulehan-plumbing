@@ -1163,6 +1163,27 @@ textarea {
   border-bottom: 1px solid var(--line);
 }
 
+.area-list a {
+  color: var(--navy);
+  text-underline-offset: 0.18em;
+}
+
+.area-list a:hover {
+  color: var(--drop-ink);
+}
+
+.town-page h2 {
+  margin-top: 2.25rem;
+}
+
+.town-page .service-grid {
+  margin-top: 1rem;
+}
+
+.town-more {
+  margin-top: 1.25rem;
+}
+
 .contact-list a {
   font-size: 1.2rem;
 }
