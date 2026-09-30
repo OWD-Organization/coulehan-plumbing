@@ -18,13 +18,6 @@ const services = [
 ];
 ---
 
-<aside class="todo">
-  <p>
-    <strong>TODO: wire this form to a lead endpoint.</strong>
-    Submissions are not delivered. The preview checks the fields, then
-    stops. Until that endpoint exists, call or email.
-  </p>
-</aside>
 <form id="quote-form" class="form" action="/contact/#quote-form" method="post" novalidate>
   <div>
     <label for="name">Name</label>
@@ -54,11 +47,11 @@ const services = [
 </form>
 <div id="form-result" class="note" role="status" hidden>
   <p>
-    <strong>Nothing was sent.</strong>
-    This preview form has no endpoint yet. Call
+    Call
     <a href={`tel:${site.phoneTel}`}>{site.phoneDisplay}</a>
     or email
-    <a href={`mailto:${site.email}`}>{site.email}</a>.
+    <a href={`mailto:${site.email}`}>{site.email}</a>
+    with the details of the job.
   </p>
 </div>
 

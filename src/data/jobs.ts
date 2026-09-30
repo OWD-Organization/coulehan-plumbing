@@ -103,9 +103,7 @@ export const jobs: Job[] = [
     paragraphs: [
       "We ran a camera through the sewer to find the problem, then located exactly where it was. We came back and got it taken care of.",
     ],
-    notes: [
-      "This post is a video. There are no still photos in the archive. Watch it on Jerry’s Facebook page.",
-    ],
+    notes: [],
     photos: [],
   },
   {
@@ -164,9 +162,7 @@ export const jobs: Job[] = [
       "Spring well filtration system with a UV light system, installed for an entire house potable water system. All piping was installed with a bypass and isolation valves.",
       "We don’t do these systems too often, but we do recommend this system for anyone looking. If you’re interested, give us a call.",
     ],
-    notes: [
-      "The source photos for this job are small (about 443 pixels wide), so they are shown at their real size and were not enlarged.",
-    ],
+    notes: [],
     photos: [
       {
         id: "01",
@@ -224,13 +220,11 @@ export const jobs: Job[] = [
     videoOnly: true,
     categories: ["video"],
     excerpt:
-      "A Facebook video with no written description. The job is not titled here until Jerry confirms it.",
+      "A Facebook video with no written description.",
     paragraphs: [
-      "Jerry posted a video on this date. The post has no written description, so this page does not guess what the video shows.",
+      "Jerry posted a video on this date. The post has no written description.",
     ],
-    notes: [
-      "TODO: confirm the job title with Jerry. The archive folder was labeled bathroom-drain. That label is not confirmed by the post text, so it is not used as the title.",
-    ],
+    notes: [],
     photos: [],
   },
   {
@@ -411,9 +405,7 @@ export const jobs: Job[] = [
       "Getting ready for a sewer line replacement in the next couple of weeks. The customer has been dealing with multiple sewage backups at the restaurant. We will be replacing approximately 20 to 30 feet of the main sewer line in the basement.",
       "Today we’ve got the entire sewer scoped and laid out.",
     ],
-    notes: [
-      "This is the prep, posted before the replacement. The post does not say the new line was finished. It is a video, with no still photos in the archive.",
-    ],
+    notes: [],
     photos: [],
   },
   {
@@ -428,9 +420,7 @@ export const jobs: Job[] = [
     paragraphs: [
       "Sometimes the simplest job can be very satisfying. If you have an old laundry sink, faucet, and washing machine hookups that are old and leaking, give us a call.",
     ],
-    notes: [
-      "This post is a video. There are no still photos in the archive. Watch it on Jerry’s Facebook page.",
-    ],
+    notes: [],
     photos: [],
   },
   {
@@ -474,9 +464,7 @@ export const jobs: Job[] = [
     paragraphs: [
       "Had the pleasure of helping out the West View / Ross Township community with the installation of 3 new toilets at the baseball field. A few families in the area have been…",
     ],
-    notes: [
-      "Jerry’s Facebook post was cut off behind the photo, and the rest of that sentence was not captured. The field sign in the photos reads Scharmyn Field. TODO: ask Jerry if he wants the rest of the caption added.",
-    ],
+    notes: [],
     photos: [
       { id: "01", alt: "The restroom building at the baseball field." },
       { id: "02", alt: "Toilets inside the field restroom before the new ones were finished." },
@@ -505,9 +493,7 @@ export const jobs: Job[] = [
       "All new PVC drain and water lines were installed, with thermostatic mixing valves at each chair to limit the temperature and prevent scalding.",
       "This job was done for Zia and Justina at Palette Nail and Lash Bar. Mother and daughter owned, with years of experience, and just all around a great place to be. It was a pleasure helping them out, and we wish them the best of luck with many years of success to come.",
     ],
-    notes: [
-      "TODO: confirm with Jerry that Zia, Justina, and the salon name should stay on the public site. They are in his Facebook post.",
-    ],
+    notes: [],
     photos: [
       { id: "01", alt: "Pedicure chairs in the salon that needed new plumbing." },
       { id: "02", alt: "Under the pedicure chairs before the new lines were finished." },

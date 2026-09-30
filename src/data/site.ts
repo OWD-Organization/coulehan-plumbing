@@ -14,7 +14,7 @@ export const site = {
   hours: "Open 24 hours, 7 days a week",
   foundingYear: "2014",
   ratingValue: "5.0",
-  reviewCount: 229,
+  reviewCount: "220+",
   facebook: "https://www.facebook.com/Coulehan724/",
   google: "https://g.co/kgs/sbPr35",
   googleReviews: "https://maps.google.com/?cid=9205564541200265602",
@@ -43,6 +43,23 @@ export const servicePages = [
   { href: "/services/sewer-repair/", label: "Sewer Repair" },
   { href: "/services/trap-replacement/", label: "Trap Replacement" },
   { href: "/services/water-filtration/", label: "Water Filtration" },
+] as const;
+
+export const serviceTowns = [
+  "Brookline",
+  "Beechview",
+  "Banksville",
+  "Carrick",
+  "Overbrook",
+  "Baldwin",
+  "Brentwood",
+  "Whitehall",
+  "Dormont",
+  "Mt. Lebanon",
+  "Castle Shannon",
+  "Bethel Park",
+  "Upper St. Clair",
+  "Peters Township",
 ] as const;
 
 /** Overview sections that do not have a page of their own. */
@@ -76,10 +93,10 @@ export function plumberJsonLd(origin: string) {
       postalCode: site.postalCode,
       addressCountry: "US",
     },
-    areaServed: {
+    areaServed: serviceTowns.map((name) => ({
       "@type": "City",
-      name: "Pittsburgh",
-    },
+      name,
+    })),
     openingHours: "Mo-Su 00:00-23:59",
     foundingDate: site.foundingYear,
     aggregateRating: {

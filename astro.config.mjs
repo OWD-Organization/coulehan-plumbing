@@ -23,6 +23,9 @@ export default defineConfig({
   server: {
     port: 3847,
     host: true,
+    headers: {
+      "X-Robots-Tag": "noindex, nofollow",
+    },
   },
   vite: {
     plugins: [noindexHeader()],

@@ -36,7 +36,7 @@ function current(href: string) {
         nav.map((item) =>
           item.href === "/services/" ? (
             <div class="nav-drop">
-              <a class="nav-services-link" href={item.href} aria-current={current(item.href)}>
+              <a class="nav-link nav-services-link" href={item.href} aria-current={current(item.href)}>
                 {item.label}
               </a>
               <button
@@ -56,7 +56,7 @@ function current(href: string) {
                   All services
                 </a>
                 <div class="submenu-col" role="group" aria-labelledby="service-pages-label">
-                  <p class="submenu-label" id="service-pages-label">Service pages</p>
+                  <p class="submenu-label" id="service-pages-label">Primary Services</p>
                   {servicePages.map((page) => (
                     <a href={page.href} aria-current={current(page.href)}>
                       {page.label}
@@ -64,7 +64,7 @@ function current(href: string) {
                   ))}
                 </div>
                 <div class="submenu-col" role="group" aria-labelledby="more-services-label">
-                  <p class="submenu-label" id="more-services-label">More services</p>
+                  <p class="submenu-label" id="more-services-label">Other Services</p>
                   {moreServices.map((page) => (
                     <a href={page.href}>{page.label}</a>
                   ))}
@@ -72,7 +72,7 @@ function current(href: string) {
               </div>
             </div>
           ) : (
-            <a href={item.href} aria-current={current(item.href)}>
+            <a class="nav-link" href={item.href} aria-current={current(item.href)}>
               {item.label}
             </a>
           ),

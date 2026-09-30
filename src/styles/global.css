@@ -163,16 +163,6 @@ p {
   outline-offset: 3px;
 }
 
-.preview-ribbon {
-  margin: 0;
-  background: var(--brass-bg);
-  color: #5c3d12;
-  text-align: center;
-  font-size: 0.95rem;
-  padding: 0.55rem 1rem;
-  border-bottom: 1px solid #ead7b8;
-}
-
 .hours-bar {
   margin: 0;
   text-align: center;
@@ -347,11 +337,14 @@ p {
   cursor: pointer;
 }
 
-.site-nav > a,
+.nav-link,
+.site-nav > .mobile-call,
+.site-nav > .mobile-quote,
 .sub-toggle {
   font-family: var(--font-heading);
   font-weight: 500;
   font-size: 1.125rem;
+  line-height: 1.2;
   color: rgba(255, 255, 255, 0.92);
   text-decoration: none;
   min-height: 48px;
@@ -359,7 +352,9 @@ p {
   align-items: center;
 }
 
-.site-nav > a:hover,
+.nav-link:hover,
+.site-nav > .mobile-call:hover,
+.site-nav > .mobile-quote:hover,
 .sub-toggle:hover {
   color: var(--drop);
 }
@@ -424,6 +419,7 @@ p {
 
 .submenu-label {
   margin: 0.75rem 0 0.15rem;
+  padding: 0;
   color: var(--drop);
   font-family: var(--font-heading);
   font-size: 0.75rem;
@@ -1126,17 +1122,10 @@ textarea {
   font-size: 1rem;
 }
 
-.todo,
 .note {
   border-radius: var(--radius-lg);
   padding: 1rem 1.1rem;
   margin: 1rem 0;
-}
-
-.todo {
-  background: var(--brass-bg);
-  color: #5c3d12;
-  border: 1px solid #ead7b8;
 }
 
 .note {
@@ -1152,6 +1141,34 @@ textarea {
   border-radius: var(--radius-xl);
   background: var(--mist);
   box-shadow: var(--shadow-md);
+}
+
+.service-map {
+  width: 100%;
+  height: 420px;
+  margin-top: 1.5rem;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: #e4e7eb;
+  box-shadow: var(--shadow-md);
+}
+
+.map-caption {
+  margin-top: 0.65rem;
+}
+
+.area-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: 1rem;
+}
+
+.area-list li {
+  color: var(--navy);
+  font-weight: 600;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--line);
 }
 
 .contact-list a {
@@ -1339,6 +1356,16 @@ dialog#lightbox::backdrop {
 }
 
 @media (min-width: 720px) {
+  .service-map {
+    height: 680px;
+    max-width: 920px;
+  }
+
+  .area-list {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+  }
+
   .service-grid,
   .review-grid,
   .recent-photos,
@@ -1408,7 +1435,7 @@ dialog#lightbox::backdrop {
     margin-left: auto;
   }
 
-  .site-nav > a {
+  .nav-link {
     min-height: 44px;
     font-size: 1rem;
     white-space: nowrap;
@@ -1475,6 +1502,11 @@ dialog#lightbox::backdrop {
 
   .submenu-all {
     grid-column: 1 / -1;
+  }
+
+  .submenu-label {
+    margin: 0.65rem 0 0.1rem;
+    padding: 0 0.75rem;
   }
 
   .submenu a {

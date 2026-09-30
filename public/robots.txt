@@ -1,3 +1,3 @@
-# Preview build. Do not index any of this site.
+# Do not index this site.
 User-agent: *
 Disallow: /

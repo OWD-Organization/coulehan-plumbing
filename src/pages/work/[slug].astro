@@ -50,7 +50,7 @@ const slides = job.photos.map((photo) => {
       {job.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
       {
         job.notes.map((note) => (
-          <aside class={note.startsWith("TODO") ? "todo" : "note"}>
+          <aside class="note">
             <p>{note}</p>
           </aside>
         ))

@@ -4,7 +4,7 @@ import Drop from "../components/Drop.astro";
 import JobCard from "../components/JobCard.astro";
 import CtaBand from "../components/CtaBand.astro";
 import { jobs } from "../data/jobs";
-import { site } from "../data/site";
+import { serviceTowns, site } from "../data/site";
 import Reviews from "../components/Reviews.astro";
 
 const featured = [
@@ -101,7 +101,7 @@ const services = [
           <a href={site.bbb} target="_blank" rel="noopener">BBB Accredited, A+ Rated</a>
         </li>
         <li>
-          <a href={site.facebook}>100% recommend · 80 Facebook reviews</a>
+          <a href={site.facebook}>100% recommend · 75+ Facebook reviews</a>
         </li>
       </ul>
     </div>
@@ -113,8 +113,7 @@ const services = [
       <div class="section-head">
         <h2>What we do</h2>
         <p>
-          The work on the current site, plus the jobs Jerry has been posting:
-          remodels, sewers, boilers, water service, and waterproofing.
+          Repairs, remodels, sewers, boilers, water service, and waterproofing.
           <a href="/services/hot-water-tank-replacement/">Hot water tanks</a>,
           <a href="/services/sewer-repair/">sewer repair</a>,
           <a href="/services/trap-replacement/">trap replacement</a>,
@@ -158,19 +157,17 @@ const services = [
   <section class="section" >
     <div class="container split">
       <div>
-        <p class="eyebrow"><Drop size={16} /> 15226</p>
-        <h2>Based in Brookline, working around Pittsburgh.</h2>
+        <p class="eyebrow"><Drop size={16} /> South Hills</p>
+        <h2>Proudly serving Pittsburgh's South Hills</h2>
         <p>
-          Coulehan Plumbing LLC is in Pittsburgh, PA 15226. That ZIP is
-          Brookline. The day-to-day work is the South Hills, and the exact town
-          list still needs Jerry’s say-so.
+          Coulehan Plumbing LLC is in Pittsburgh, PA 15226. We serve {serviceTowns.join(", ")}.
         </p>
         <p><a href="/service-area/">Service area</a></p>
       </div>
       <div class="trust-card">
         <h3>A straight recommendation rate</h3>
         <p>
-          Facebook shows 100% recommend, from 80 reviews. Google reviews are
+          Facebook shows 100% recommend, from 75+ reviews. Google reviews are
           quoted below, word for word.
         </p>
         <p>
