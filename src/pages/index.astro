@@ -1,6 +1,5 @@
 ---
 import Base from "../layouts/Base.astro";
-import Photo from "../components/Photo.astro";
 import Drop from "../components/Drop.astro";
 import JobCard from "../components/JobCard.astro";
 import CtaBand from "../components/CtaBand.astro";
@@ -53,51 +52,55 @@ const services = [
   documentTitle="Coulehan Plumbing LLC | Pittsburgh Plumber"
   description="Owner-operated plumber in Pittsburgh, PA. Jerry Coulehan, Master Plumber. Repairs, remodels, sewer work, and 24-hour emergency service. Call (412) 513-9335."
 >
-  <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <p class="eyebrow"><Drop size={16} /> Pittsburgh, PA</p>
-        <p class="emergency-flag">24/7 Emergency Plumbing</p>
-        <h1>{site.slogan}</h1>
-        <p class="lede">
-          Owner-operated plumbing in Pittsburgh. Serving Pittsburgh since {site.foundingYear}.
-        </p>
-        <p class="person-name">{site.owner}</p>
-        <p class="master-line">{site.ownerTitle}</p>
-        <p class="lede">
-          Residential and commercial repairs, remodels, sewer work, and 24-hour
-          emergency service.
-        </p>
-        <div class="cta-row">
-          <a class="btn btn-light" href={`tel:${site.phoneTel}`}>Call {site.phoneDisplay}</a>
-          <a class="btn btn-line" href="/contact/">Request a quote</a>
-        </div>
-        <ul class="trust">
-          <li>
-            <a href={site.googleReviews} target="_blank" rel="noopener">
-              5.0 stars, {site.reviewCount} Google reviews
-            </a>
-          </li>
-          <li>
-            <a href={site.bbb} target="_blank" rel="noopener">BBB Accredited, A+ Rated</a>
-          </li>
-          <li><a href={site.facebook}>100% recommend · 80 Facebook reviews</a></li>
-        </ul>
-      </div>
-      <figure class="hero-photo">
-        <Photo
-          group="jobs/kitchen-remodel-new-pvc"
-          id="03"
-          alt="New white PVC drain and vent piping run through open joists on a kitchen remodel."
-          sizes="(min-width: 720px) 46vw, 100vw"
-          loading="eager"
-          fetchpriority="high"
+  <section class="hero hero-truck">
+    <div class="hero-media">
+      <picture>
+        <source
+          type="image/webp"
+          srcset="/media/brand/truck-hero-900.webp 900w, /media/brand/truck-hero-1350.webp 1350w"
+          sizes="100vw"
         />
-        <figcaption>
-          New PVC on a kitchen remodel. September 27, 2026.
-          <a href="/work/kitchen-remodel-new-pvc/">See the job</a>
-        </figcaption>
-      </figure>
+        <img
+          src="/media/brand/truck-hero-1350.jpg"
+          srcset="/media/brand/truck-hero-900.jpg 900w, /media/brand/truck-hero-1350.jpg 1350w"
+          sizes="100vw"
+          width="1350"
+          height="1800"
+          alt="Coulehan Plumbing service truck parked on a residential street behind an open trench, with a mini excavator and traffic cones."
+          fetchpriority="high"
+          decoding="async"
+        />
+      </picture>
+      <div class="hero-scrim" aria-hidden="true"></div>
+    </div>
+    <div class="container hero-copy">
+      <p class="eyebrow"><Drop size={16} /> Pittsburgh, PA</p>
+      <p class="emergency-flag">24/7 Emergency Plumbing</p>
+      <h1>{site.slogan}</h1>
+      <p class="lede">
+        Owner-operated plumbing in Pittsburgh. Serving Pittsburgh since {site.foundingYear}.
+      </p>
+      <p class="person-name">{site.owner}</p>
+      <p class="master-line">{site.ownerTitle}</p>
+      <p class="lede">
+        Residential and commercial repairs, remodels, sewer work, and 24-hour
+        emergency service.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-light" href={`tel:${site.phoneTel}`}>Call {site.phoneDisplay}</a>
+        <a class="btn btn-line" href="/contact/">Request a quote</a>
+      </div>
+      <ul class="trust">
+        <li>
+          <a href={site.googleReviews} target="_blank" rel="noopener">
+            5.0 stars, {site.reviewCount} Google reviews
+          </a>
+        </li>
+        <li>
+          <a href={site.bbb} target="_blank" rel="noopener">BBB Accredited, A+ Rated</a>
+        </li>
+        <li><a href={site.facebook}>100% recommend · 80 Facebook reviews</a></li>
+      </ul>
     </div>
   </section>
 

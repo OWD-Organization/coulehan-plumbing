@@ -25,7 +25,7 @@ import { site } from "../data/site";
   </header>
 
   <section class="section" style="padding-top: 1rem">
-    <div class="container split">
+    <div class="container split about-split">
       <div class="prose">
         <h2>What checks out</h2>
         <div class="trust-grid" style="grid-template-columns: 1fr">
@@ -48,7 +48,27 @@ import { site } from "../data/site";
           </article>
         </div>
       </div>
-      <div>
+      <div class="about-aside">
+        <figure class="feature-photo about-skyline">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="/media/brand/truck-skyline-900.webp 900w, /media/brand/truck-skyline-1536.webp 1536w"
+              sizes="(min-width: 720px) 42vw, 100vw"
+            />
+            <img
+              src="/media/brand/truck-skyline-1536.jpg"
+              srcset="/media/brand/truck-skyline-900.jpg 900w, /media/brand/truck-skyline-1536.jpg 1536w"
+              sizes="(min-width: 720px) 42vw, 100vw"
+              width="1536"
+              height="2048"
+              alt="Coulehan Plumbing service truck parked at an overlook, with the Pittsburgh skyline behind it."
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+          <figcaption>The service truck above Pittsburgh.</figcaption>
+        </figure>
         <Photo
           class="about-logo"
           group="brand"
@@ -56,15 +76,6 @@ import { site } from "../data/site";
           alt="Coulehan Plumbing logo: a blue water drop over crossed pipes, with the company name."
           sizes="280px"
         />
-        <figure class="hero-photo" style="margin-top: 1rem">
-          <Photo
-            group="brand"
-            id="cover"
-            alt="Rear of the Coulehan Plumbing service truck, with the company name and blue drop logo."
-            sizes="(min-width: 720px) 40vw, 100vw"
-          />
-          <figcaption>The service truck, from the Facebook cover photo.</figcaption>
-        </figure>
       </div>
     </div>
 
