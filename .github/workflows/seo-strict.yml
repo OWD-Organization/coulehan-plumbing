@@ -1,0 +1,19 @@
+# Informational pull request check. Not a required status check.
+name: SEO strict
+
+on:
+  pull_request:
+
+jobs:
+  seo-strict:
+    name: seo:strict
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run seo:strict

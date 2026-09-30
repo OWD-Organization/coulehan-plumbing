@@ -2,7 +2,14 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { plumberJsonLd, site } from "../data/site";
+import { jobs } from "../data/jobs";
+import { siteIndexable } from "../data/indexable";
+import { plumberJsonLd, servicePages, site, towns } from "../data/site";
+
+interface Crumb {
+  name: string;
+  path: string;
+}
 
 interface Props {
   title: string;
@@ -10,11 +17,70 @@ interface Props {
   documentTitle?: string;
   /** Replaces the default Plumber JSON-LD. Must not include a street address. */
   jsonLd?: object;
+  /** Extra JSON-LD blocks, such as Service. No street address or license numbers. */
+  extraJsonLd?: object | object[];
 }
 
 const { title, description, documentTitle } = Astro.props;
 const fullTitle = documentTitle ?? `${title} | ${site.name}`;
-const jsonLd = Astro.props.jsonLd ?? plumberJsonLd(Astro.site?.href ?? site.website);
+const origin = Astro.site ?? site.website;
+const canonical = new URL(Astro.url.pathname, origin).href;
+const ogImage = new URL("/media/brand/logo-512.jpg", origin).href;
+const businessId = "https://coulehanplumbing.com/#business";
+
+function crumbsFor(path: string): Crumb[] | null {
+  if (path === "/" || path === "/404" || path === "/404/") return null;
+  const home = { name: "Home", path: "/" };
+  if (path === "/about/") return [home, { name: "About", path }];
+  if (path === "/contact/") return [home, { name: "Contact", path }];
+  if (path === "/services/") return [home, { name: "Services", path }];
+  if (path.startsWith("/services/")) {
+    const page = servicePages.find((item) => item.href === path);
+    return [home, { name: "Services", path: "/services/" }, { name: page?.label ?? title, path }];
+  }
+  if (path === "/service-area/") return [home, { name: "Service Area", path }];
+  if (path.startsWith("/service-area/")) {
+    const slug = path.split("/").filter(Boolean)[1];
+    const town = towns.find((item) => item.slug === slug);
+    return [home, { name: "Service Area", path: "/service-area/" }, { name: town?.name ?? title, path }];
+  }
+  if (path === "/work/") return [home, { name: "Examples of My Work", path }];
+  if (path.startsWith("/work/")) {
+    const slug = path.split("/").filter(Boolean)[1];
+    const job = jobs.find((item) => item.slug === slug);
+    return [
+      home,
+      { name: "Examples of My Work", path: "/work/" },
+      { name: job?.title ?? title, path },
+    ];
+  }
+  return [home, { name: title, path }];
+}
+
+const crumbs = crumbsFor(Astro.url.pathname);
+const breadcrumbLd = crumbs && {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: crumbs.map((crumb, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: crumb.name,
+    item: new URL(crumb.path, "https://coulehanplumbing.com").href,
+  })),
+};
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://coulehanplumbing.com/#website",
+  url: "https://coulehanplumbing.com/",
+  name: site.name,
+  publisher: { "@id": businessId },
+};
+const blocks: object[] = [Astro.props.jsonLd ?? plumberJsonLd(Astro.site?.href ?? site.website), websiteLd];
+if (breadcrumbLd) blocks.push(breadcrumbLd);
+const extra = Astro.props.extraJsonLd;
+if (Array.isArray(extra)) blocks.push(...extra);
+else if (extra) blocks.push(extra);
 ---
 
 <!doctype html>
@@ -22,9 +88,10 @@ const jsonLd = Astro.props.jsonLd ?? plumberJsonLd(Astro.site?.href ?? site.webs
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, nofollow" />
+    {!siteIndexable && <meta name="robots" content="noindex, nofollow" />}
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <meta name="theme-color" content={site.navy} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -37,8 +104,13 @@ const jsonLd = Astro.props.jsonLd ?? plumberJsonLd(Astro.site?.href ?? site.webs
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={new URL("/media/brand/logo-512.jpg", Astro.site ?? site.website).href} />
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    {blocks.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
