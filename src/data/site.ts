@@ -45,6 +45,19 @@ export const servicePages = [
   { href: "/services/water-filtration/", label: "Water Filtration" },
 ] as const;
 
+/** Overview sections that do not have a page of their own. */
+export const moreServices = [
+  { href: "/services/#repairs", label: "Repairs" },
+  { href: "/services/#emergency", label: "24-hour emergency service" },
+  { href: "/services/#remodels", label: "Remodels, rough-ins, and new construction" },
+  { href: "/services/#drains", label: "Drain cleaning and hydro jetting" },
+  { href: "/services/#sewers", label: "Sewer camera, house traps, and replacement" },
+  { href: "/services/#boilers", label: "Tankless and combi boilers" },
+  { href: "/services/#water-service", label: "Water service, wells, filtration, and UV" },
+  { href: "/services/#waterproofing", label: "Basement waterproofing and French drains" },
+  { href: "/services/#commercial", label: "Commercial plumbing" },
+] as const;
+
 export function plumberJsonLd(origin: string) {
   return {
     "@context": "https://schema.org",

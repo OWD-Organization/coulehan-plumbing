@@ -188,7 +188,7 @@ const blocks = [
       <div class="service-grid service-page-grid">
         {
           servicePages.map((page) => (
-            <article class="service-card">
+            <article class="service-card" id={page.href.split("/").filter(Boolean).pop()}>
               <a href={page.href}>
                 <p class="card-kicker">
                   <Drop size={16} />

@@ -31,6 +31,7 @@
 
 html {
   scroll-behavior: smooth;
+  --sticky-header: 7.25rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -550,6 +551,11 @@ dialog :focus-visible {
   gap: 1.2rem;
   padding: 1.5rem 0;
   border-top: 1px solid var(--line);
+  scroll-margin-top: calc(var(--sticky-header) + 0.75rem);
+}
+
+.service-card[id] {
+  scroll-margin-top: calc(var(--sticky-header) + 0.75rem);
 }
 
 .service-block h2 {
@@ -1108,8 +1114,57 @@ dialog#lightbox::backdrop {
   position: relative;
 }
 
+.nav-services-row,
+.sub-toggle {
+  font: inherit;
+}
+
+.sub-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-width: 44px;
+  min-height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.sub-toggle-hint {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.chevron {
+  display: block;
+  transition: transform 0.15s linear;
+}
+
 .submenu {
   display: none;
+}
+
+.submenu-label {
+  margin: 0.35rem 0.75rem 0.15rem;
+  color: var(--drop);
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.submenu-col {
+  display: grid;
+  align-content: start;
 }
 
 .copyright {
@@ -1220,12 +1275,49 @@ dialog#lightbox::backdrop {
 }
 
 @media (max-width: 1099px) {
-  .site-header.is-open .submenu {
-    display: block;
+  .site-header.is-open .site-nav {
+    max-height: calc(100dvh - var(--sticky-header));
+    overflow-y: auto;
+  }
+
+  .nav-services-link {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+    min-height: 0;
+  }
+
+  .sub-toggle {
+    width: 100%;
+    min-height: 48px;
+    justify-content: space-between;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-weight: 500;
+    text-align: left;
+  }
+
+  .sub-toggle-hint {
+    display: none;
+  }
+
+  .nav-drop.is-open > .submenu {
+    display: grid;
   }
 
   .submenu a {
+    min-height: 48px;
     padding-left: 0.85rem;
+  }
+
+  .nav-drop.is-open .chevron {
+    transform: rotate(180deg);
   }
 }
 
@@ -1237,9 +1329,22 @@ dialog#lightbox::backdrop {
 }
 
 @media (min-width: 1100px) {
-  .nav-drop:hover .submenu,
-  .nav-drop:focus-within .submenu {
+  .nav-drop {
+    display: flex;
+    align-items: center;
+  }
+
+  .sub-toggle-label {
+    display: none;
+  }
+
+  .nav-drop.is-open > .submenu {
     display: grid;
+    grid-template-columns: minmax(15rem, 18rem) minmax(16rem, 22rem);
+  }
+
+  .nav-drop.is-open .chevron {
+    transform: rotate(180deg);
   }
 
   .submenu {
@@ -1247,8 +1352,10 @@ dialog#lightbox::backdrop {
     top: calc(100% + 0.35rem);
     left: 0;
     z-index: 40;
-    min-width: 18.5rem;
-    padding: 0.4rem;
+    width: min(42rem, calc(100vw - 2rem));
+    max-height: calc(100dvh - var(--sticky-header) - 1rem);
+    overflow-y: auto;
+    padding: 0.45rem;
     background: var(--navy-2);
     border-radius: 12px;
     box-shadow: var(--shadow);
@@ -1263,7 +1370,13 @@ dialog#lightbox::backdrop {
     height: 0.5rem;
   }
 
+  .submenu-all {
+    grid-column: 1 / -1;
+  }
+
   .submenu a {
-    white-space: nowrap;
+    min-height: 44px;
+    white-space: normal;
+    line-height: 1.3;
   }
 }
