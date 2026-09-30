@@ -1,0 +1,99 @@
+---
+import Base from "../layouts/Base.astro";
+import Drop from "../components/Drop.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { towns } from "../data/site";
+import { serviceAreaPolygon } from "../data/service-area";
+---
+
+<Base
+  title="Service Area"
+  description="Proudly serving Pittsburgh's South Hills: Brookline, Beechview, Banksville, Carrick, Overbrook, Baldwin, Brentwood, Whitehall, Dormont, Mt. Lebanon, Castle Shannon, Bethel Park, Upper St. Clair, and Peters Township."
+>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow"><Drop size={16} /> Service area</p>
+      <h1>Proudly serving Pittsburgh's South Hills</h1>
+      <p class="lede">
+        Coulehan Plumbing LLC is based in Pittsburgh, PA 15226. Serving Pittsburgh
+        since 2014. These are the neighborhoods and towns we cover.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <h2>Towns we serve</h2>
+      <ul class="area-list">
+        {
+          towns.map((town) => (
+            <li>
+              <a href={`/service-area/${town.slug}/`}>{town.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <div
+        id="service-map"
+        class="service-map"
+        role="region"
+        aria-label="Map of the Greater Pittsburgh service area"
+        data-polygon={JSON.stringify(serviceAreaPolygon)}
+      >
+      </div>
+      <p class="fine map-caption">Serving Greater Pittsburgh</p>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+
+<script>
+  import L from "leaflet";
+  import "leaflet/dist/leaflet.css";
+
+  const mapEl = document.querySelector("#service-map");
+  if (mapEl instanceof HTMLElement) {
+    const raw = mapEl.dataset.polygon ?? "[]";
+    const area = JSON.parse(raw) as [number, number][];
+    const map = L.map(mapEl, {
+      scrollWheelZoom: false,
+      attributionControl: true,
+    });
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    const maskOuter: [number, number][] = [
+      [85, -180],
+      [85, 180],
+      [-85, 180],
+      [-85, -180],
+    ];
+    L.polygon([maskOuter, area], {
+      stroke: false,
+      fillColor: "#182033",
+      fillOpacity: 0.34,
+      interactive: false,
+    }).addTo(map);
+
+    const shape = L.polygon(area, {
+      color: "#4199E1",
+      weight: 4,
+      opacity: 1,
+      fillColor: "#4199E1",
+      fillOpacity: 0.22,
+    }).addTo(map);
+
+    const fit = () => {
+      map.invalidateSize();
+      map.fitBounds(shape.getBounds(), { padding: [24, 24], animate: false });
+    };
+    map.whenReady(fit);
+    window.addEventListener("load", fit);
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      map.dragging.disable();
+    }
+  }
+</script>

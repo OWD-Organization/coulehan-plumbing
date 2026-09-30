@@ -1,0 +1,182 @@
+---
+import Base from "../layouts/Base.astro";
+import Drop from "../components/Drop.astro";
+import JobCard from "../components/JobCard.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { jobs } from "../data/jobs";
+import { serviceTowns, site } from "../data/site";
+import Reviews from "../components/Reviews.astro";
+
+const featured = [
+  "kitchen-remodel-new-pvc",
+  "rinnai-combi-unit",
+  "sewer-repair",
+].map((slug) => jobs.find((job) => job.slug === slug)!);
+
+const services = [
+  {
+    href: "/services/#repairs",
+    title: "Repairs",
+    text: "Leaks, fixtures, and the jobs that can’t wait.",
+  },
+  {
+    href: "/services/#remodels",
+    title: "Remodels",
+    text: "Kitchen and bath plumbing, rough-ins, and new construction.",
+  },
+  {
+    href: "/services/sewer-repair/",
+    title: "Sewers and drains",
+    text: "Camera inspections, cleaning, hydro jetting, and replacements.",
+  },
+  {
+    href: "/services/hot-water-tank-replacement/",
+    title: "Combi boilers",
+    text: "Rinnai and Navien units for hot water and heat.",
+  },
+  {
+    href: "/services/#water-service",
+    title: "Water service",
+    text: "Service lines, spring wells, filtration, and UV.",
+  },
+  {
+    href: "/services/#waterproofing",
+    title: "Waterproofing",
+    text: "Wet basements, French drains, and sump pumps.",
+  },
+];
+---
+
+<Base
+  title="Home"
+  documentTitle="Coulehan Plumbing LLC | Pittsburgh Plumber"
+  description="Owner-operated plumber in Pittsburgh, PA. Jerry Coulehan, Master Plumber. Repairs, remodels, sewer work, and 24-hour emergency service. Call (412) 513-9335."
+>
+  <section class="hero">
+    <div class="container hero-content">
+      <p class="eyebrow"><Drop size={16} /> Pittsburgh, PA</p>
+      <p class="emergency-flag">24/7 Emergency Plumbing</p>
+      <h1>{site.slogan}</h1>
+      <p class="lede">
+        Owner-operated plumbing in Pittsburgh. Serving Pittsburgh since {site.foundingYear}.
+      </p>
+      <p class="person-name">{site.owner}</p>
+      <p class="master-line">{site.ownerTitle}</p>
+      <p class="lede">
+        Residential and commercial repairs, remodels, sewer work, and 24-hour
+        emergency service.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href={`tel:${site.phoneTel}`}>Call {site.phoneDisplay}</a>
+        <a class="btn btn-ghost" href="/contact/">Request a quote</a>
+      </div>
+    </div>
+    <div class="container hero-photo">
+      <picture>
+        <source
+          type="image/webp"
+          srcset="/media/brand/truck-hero-900.webp 900w, /media/brand/truck-hero-1350.webp 1350w"
+          sizes="(min-width: 1280px) 1232px, 100vw"
+        />
+        <img
+          src="/media/brand/truck-hero-1350.jpg"
+          srcset="/media/brand/truck-hero-900.jpg 900w, /media/brand/truck-hero-1350.jpg 1350w"
+          sizes="(min-width: 1280px) 1232px, 100vw"
+          width="1350"
+          height="1800"
+          alt="Coulehan Plumbing service truck parked on a residential street behind an open trench, with a mini excavator and traffic cones."
+          fetchpriority="high"
+          decoding="async"
+        />
+      </picture>
+    </div>
+    <div class="container">
+      <ul class="hero-badges">
+        <li>
+          <a href={site.googleReviews} target="_blank" rel="noopener">
+            5.0 stars, {site.reviewCount} Google reviews
+          </a>
+        </li>
+        <li>
+          <a href={site.bbb} target="_blank" rel="noopener">BBB Accredited, A+ Rated</a>
+        </li>
+        <li>
+          <a href={site.facebook}>100% recommend · 75+ Facebook reviews</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="drop-rule"><Drop size={28} /></div>
+      <div class="section-head">
+        <h2>What we do</h2>
+        <p>
+          Repairs, remodels, sewers, boilers, water service, and waterproofing.
+          <a href="/services/hot-water-tank-replacement/">Hot water tanks</a>,
+          <a href="/services/sewer-repair/">sewer repair</a>,
+          <a href="/services/trap-replacement/">trap replacement</a>,
+          and
+          <a href="/services/water-filtration/">water filtration</a>.
+        </p>
+      </div>
+      <div class="service-grid">
+        {
+          services.map((item) => (
+            <article class="service-card">
+              <a href={item.href}>
+                <p class="card-kicker">
+                  <Drop size={16} />
+                </p>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" >
+    <div class="container">
+      <div class="section-head">
+        <h2>Recent work</h2>
+        <p>
+          Real jobs from Jerry’s Facebook page, in his words.
+          <a href="/work/">Examples of My Work</a>
+        </p>
+      </div>
+      <div class="job-grid">
+        {featured.map((job) => <JobCard job={job} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" >
+    <div class="container split">
+      <div>
+        <p class="eyebrow"><Drop size={16} /> South Hills</p>
+        <h2>Proudly serving Pittsburgh's South Hills</h2>
+        <p>
+          Coulehan Plumbing LLC is in Pittsburgh, PA 15226. We serve {serviceTowns.join(", ")}.
+        </p>
+        <p><a href="/service-area/">Service area</a></p>
+      </div>
+      <div class="trust-card">
+        <h3>A straight recommendation rate</h3>
+        <p>
+          Facebook shows 100% recommend, from 75+ reviews. Google reviews are
+          quoted below, word for word.
+        </p>
+        <p>
+          <a href={site.facebook}>Coulehan Plumbing on Facebook</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Reviews />
+  <CtaBand />
+</Base>

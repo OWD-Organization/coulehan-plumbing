@@ -1,0 +1,115 @@
+---
+import Base from "../../layouts/Base.astro";
+import Drop from "../../components/Drop.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { servicePages, site, townPlumberJsonLd, towns } from "../../data/site";
+import type { Town } from "../../data/towns";
+
+export function getStaticPaths() {
+  return towns.map((town) => ({
+    params: { slug: town.slug },
+    props: { town },
+  }));
+}
+
+interface Props {
+  town: Town;
+}
+
+const { town } = Astro.props;
+const nearby = town.nearby.map((slug) => {
+  const match = towns.find((item) => item.slug === slug);
+  if (!match) throw new Error(`Unknown nearby town: ${slug}`);
+  return match;
+});
+
+const blurbs: Record<string, string> = {
+  "/services/hot-water-tank-replacement/": "Tank and tankless installation and repair.",
+  "/services/sewer-repair/": "Sewer line cleaning, camera inspection, and repair.",
+  "/services/trap-replacement/": "P-traps under sinks and tubs, drain traps, leaks, and odors.",
+  "/services/water-filtration/": "Filtration systems and water softener installation.",
+};
+
+const title = `Plumber in ${town.name}, PA`;
+const jsonLd = townPlumberJsonLd(Astro.site?.href ?? site.website, town);
+---
+
+<Base title={title} description={town.description} jsonLd={jsonLd}>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow"><Drop size={16} /> <a href="/service-area/">Service area</a></p>
+      <h1>{title}</h1>
+      <p class="lede">{town.intro}</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container town-page">
+      <div class="prose">
+        <p>{town.detail}</p>
+      </div>
+
+      <h2>Services in {town.name}</h2>
+      <p>{town.servicesLead}</p>
+      <div class="service-grid">
+        {
+          servicePages.map((page) => (
+            <article class="service-card">
+              <a href={page.href}>
+                <p class="card-kicker">
+                  <Drop size={16} />
+                </p>
+                <h3>{page.label}</h3>
+                <p>{blurbs[page.href]}</p>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+      <p class="town-more">
+        <a href="/services/">All plumbing services</a>
+      </p>
+
+      <h2>Why Coulehan</h2>
+      <p>{town.whyLead}</p>
+      <ul class="drop-list">
+        <li>{site.owner}, {site.ownerTitle}</li>
+        <li>Owner-operated</li>
+        <li>Serving Pittsburgh since {site.foundingYear}</li>
+        <li>{site.hours}</li>
+        <li>
+          <a href={site.bbb} target="_blank" rel="noopener">BBB Accredited, A+ Rated</a>
+        </li>
+        <li>
+          <a href={site.googleReviews} target="_blank" rel="noopener">
+            5.0 stars from {site.reviewCount} Google reviews
+          </a>
+        </li>
+        <li>
+          <a href={site.facebook}>75+ Facebook reviews</a>
+        </li>
+      </ul>
+
+      <div class="service-call">
+        <h2>Call</h2>
+        <p>{town.callLine}</p>
+        <a class="btn btn-primary" href={`tel:${site.phoneTel}`}>Call {site.phoneDisplay}</a>
+      </div>
+
+      <h2>Nearby towns</h2>
+      <ul class="area-list">
+        {
+          nearby.map((item) => (
+            <li>
+              <a href={`/service-area/${item.slug}/`}>Plumber in {item.name}, PA</a>
+            </li>
+          ))
+        }
+      </ul>
+      <p>
+        <a href="/service-area/">Back to the service area</a>
+      </p>
+    </div>
+  </section>
+  <CtaBand />
+</Base>

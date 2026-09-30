@@ -1,0 +1,62 @@
+---
+import { reviews } from "../data/reviews";
+import { reviewShots } from "../data/review-shots";
+import { site } from "../data/site";
+
+interface Props {
+  heading?: string;
+  /** About uses the screenshot cards. Other pages keep the text cards. */
+  variant?: "text" | "screenshots";
+}
+const { heading = "Google reviews", variant = "text" } = Astro.props;
+---
+
+<section class="section reviews" id="reviews">
+  <div class="container">
+    <div class="section-head">
+      <h2>{heading}</h2>
+      <p>5.0 stars, {site.reviewCount} Google reviews</p>
+    </div>
+    {
+      variant === "screenshots" ? (
+        <div class="review-shot-grid">
+          {reviewShots.map((shot) => (
+            <figure class="review-shot">
+              <picture>
+                <source type="image/webp" srcset={`/media/reviews/${shot.id}.webp`} />
+                <img
+                  src={`/media/reviews/${shot.id}.png`}
+                  width={shot.width}
+                  height={shot.height}
+                  alt={shot.alt}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </figure>
+          ))}
+        </div>
+      ) : (
+        <div class="review-grid">
+          {reviews.map((review) => (
+            <figure class="review-card">
+              <p class="stars" aria-label="5 stars">
+                ★★★★★
+              </p>
+              <blockquote>{review.text}</blockquote>
+              <figcaption>{review.name}</figcaption>
+            </figure>
+          ))}
+        </div>
+      )
+    }
+    <div class="cta-row">
+      <a class="btn btn-primary" href={site.googleReviews} target="_blank" rel="noopener">
+        Read all our Google reviews
+      </a>
+      <a class="review-leave" href={site.googleWriteReview} target="_blank" rel="noopener">
+        Leave a review
+      </a>
+    </div>
+  </div>
+</section>

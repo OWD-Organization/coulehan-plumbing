@@ -1,0 +1,82 @@
+---
+import Base from "../layouts/Base.astro";
+import Drop from "./Drop.astro";
+import QuoteForm from "./QuoteForm.astro";
+import RecentJobs from "./RecentJobs.astro";
+import type { Job } from "../data/jobs";
+import { site } from "../data/site";
+
+interface Faq {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  intro: string;
+  signs: string[];
+  involves: string[];
+  faqs: Faq[];
+  jobs: Job[];
+}
+
+const { title, description, intro, signs, involves, faqs, jobs } = Astro.props;
+---
+
+<Base title={title} description={description}>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow"><Drop size={16} /> <a href="/services/">Services</a></p>
+      <h1>{title}</h1>
+      <p class="lede">{intro}</p>
+    </div>
+  </header>
+
+  <section class="section" >
+    <div class="container service-detail">
+      <h2>Common signs</h2>
+      <ul class="drop-list">
+        {signs.map((sign) => <li>{sign}</li>)}
+      </ul>
+
+      <h2>What the job involves</h2>
+      <ul class="drop-list">
+        {involves.map((step) => <li>{step}</li>)}
+      </ul>
+
+      <RecentJobs jobs={jobs} />
+
+      <h2>Why choose Jerry</h2>
+      <ul class="drop-list">
+        <li>{site.owner}, {site.ownerTitle}</li>
+        <li>{site.hours}</li>
+        <li>5.0 stars from {site.reviewCount} Google reviews</li>
+        <li>
+          <a href={site.bbb} target="_blank" rel="noopener">BBB Accredited, A+ Rated</a>
+        </li>
+      </ul>
+
+      <h2>Questions</h2>
+      <div class="faq-list">
+        {
+          faqs.map((faq) => (
+            <details>
+              <summary>{faq.question}</summary>
+              <p>{faq.answer}</p>
+            </details>
+          ))
+        }
+      </div>
+
+      <div class="service-call">
+        <h2>Call</h2>
+        <p>24/7 Emergency Plumbing. {site.hours}.</p>
+        <a class="btn btn-primary" href={`tel:${site.phoneTel}`}>Call {site.phoneDisplay}</a>
+      </div>
+
+      <h2>Request a quote</h2>
+      <QuoteForm />
+    </div>
+  </section>
+</Base>

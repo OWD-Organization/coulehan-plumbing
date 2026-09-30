@@ -1,0 +1,244 @@
+---
+import Base from "../layouts/Base.astro";
+import Photo from "../components/Photo.astro";
+import Drop from "../components/Drop.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { servicePages, site } from "../data/site";
+
+const serviceBlurbs: Record<string, string> = {
+  "/services/hot-water-tank-replacement/": "Tank and tankless installation and repair.",
+  "/services/sewer-repair/": "Sewer line cleaning, camera inspection, and repair.",
+  "/services/trap-replacement/": "P-traps under sinks and tubs, drain traps, leaks, and odors.",
+  "/services/water-filtration/": "Filtration systems and water softener installation.",
+};
+
+const blocks = [
+  {
+    id: "repairs",
+    title: "Repairs",
+    paragraphs: [
+      "Repairs cover leaking fixtures, failed drains, and the smaller jobs that still have to be done right.",
+      "A June 2026 video is about an old laundry sink, faucet, and washing machine hookups that are old and leaking. He calls that kind of job satisfying.",
+    ],
+    links: [
+      { href: "/work/laundry-hookups/", label: "Laundry hookups (video)" },
+      { href: "/work/?type=repairs", label: "Repair stories" },
+    ],
+    photo: null,
+  },
+  {
+    id: "emergency",
+    title: "24-hour emergency service",
+    paragraphs: [
+      `${site.hours}. 24/7 emergency plumbing for residential and commercial calls.`,
+    ],
+    links: [{ href: "/contact/", label: "Call or request a quote" }],
+    photo: null,
+  },
+  {
+    id: "remodels",
+    title: "Remodels, rough-ins, and new construction",
+    paragraphs: [
+      "Full system installs, remodels, and new construction. Recent jobs include kitchen and bath plumbing, rough-ins, and new drains.",
+      "On a September 2026 kitchen remodel, the ceiling came down so the old drains, including the stack, could be cut out and replaced with new PVC. In August, a second-floor rough-in got new drain lines for a toilet, sink, and bathtub. A basement powder room was expanded with a shower, tied onto the existing plumbing. A tub-to-shower conversion swapped the old bathtub for a 2-inch PVC drain and a Delta shower pan in 8 hours.",
+    ],
+    links: [
+      { href: "/work/kitchen-remodel-new-pvc/", label: "Kitchen remodel, new PVC" },
+      { href: "/work/bathroom-rough-in/", label: "Second-floor rough-in" },
+      { href: "/work/bathroom-makeover/", label: "Basement bathroom" },
+      { href: "/work/bathtub-shower-conversion/", label: "Tub to shower" },
+    ],
+    photo: {
+      group: "jobs/kitchen-remodel-new-pvc",
+      id: "03",
+      alt: "New PVC drain piping in the opened ceiling of a kitchen remodel.",
+      href: "/work/kitchen-remodel-new-pvc/",
+    },
+  },
+  {
+    id: "drains",
+    title: "Drain cleaning and hydro jetting",
+    paragraphs: [
+      "Drain cleaning and hydro jetting clear lines that are backing up.",
+      "If a drain is backing up, the next step Jerry shows in his posts is often a camera, then the repair.",
+    ],
+    links: [
+      { href: "/services/#sewers", label: "Sewer camera and repair" },
+      { href: "/services/trap-replacement/", label: "Trap replacement" },
+    ],
+    photo: null,
+  },
+  {
+    id: "sewers",
+    title: "Sewer camera, house traps, and replacement",
+    paragraphs: [
+      "Sewer camera inspections find the problem before the repair. In September 2026 Jerry ran a camera through a sewer, located the break, and came back to take care of it.",
+      "He also replaces inside house traps. At the end of August he finished one that had been started over the weekend.",
+      "On a July repair, 30 feet of old terracotta came out and schedule 40 PVC went in, embedded in gravel. At a restaurant, repeated sewage backups led to a camera scope of the basement sewer, laid out for a replacement of about 20 to 30 feet.",
+    ],
+    links: [
+      { href: "/work/sewer-camera-inspection/", label: "Sewer camera (video)" },
+      { href: "/work/house-trap-replacement/", label: "House trap" },
+      { href: "/work/sewer-repair/", label: "Terracotta to PVC" },
+      { href: "/work/restaurant-sewer-line-prep/", label: "Restaurant sewer scope" },
+      { href: "/services/sewer-repair/", label: "Sewer repair" },
+    ],
+    photo: {
+      group: "jobs/sewer-repair",
+      id: "08",
+      alt: "New PVC sewer pipe set in gravel where terracotta was removed.",
+      href: "/work/sewer-repair/",
+    },
+  },
+  {
+    id: "boilers",
+    title: "Tankless and combi boilers",
+    paragraphs: [
+      "Jerry installs combi units and shows the before-and-after. In August 2026 he put in a Rinnai combi and posted the old tank beside the new unit.",
+      "In December 2024 he posted a Navien combo unit for domestic hot water and radiant floor heating. If you want more information on a Rinnai, he says to call with questions.",
+    ],
+    links: [
+      { href: "/work/rinnai-combi-unit/", label: "Rinnai combi" },
+      { href: "/work/navien-combo-unit/", label: "Navien combo" },
+      { href: "/services/hot-water-tank-replacement/", label: "Hot water tank replacement" },
+    ],
+    photo: {
+      group: "jobs/rinnai-combi-unit",
+      id: "03",
+      alt: "A Rinnai combi unit installed on a utility wall.",
+      href: "/work/rinnai-combi-unit/",
+    },
+  },
+  {
+    id: "water-service",
+    title: "Water service, wells, filtration, and UV",
+    paragraphs: [
+      "In June 2026 a call for a possible underground leak turned into a new water service: about 30 feet from the curb to inside the basement, because of where the leak was and the condition of the line.",
+      "He also installs spring well filtration with UV for a whole-house potable system, piped with a bypass and isolation valves. He says they don’t do these systems too often, and he does recommend them. Call if you want one.",
+    ],
+    links: [
+      { href: "/work/water-service-line/", label: "Water service line" },
+      { href: "/work/spring-well-filtration/", label: "Spring well and UV" },
+      { href: "/services/water-filtration/", label: "Water filtration" },
+    ],
+    photo: {
+      group: "jobs/water-service-line",
+      id: "05",
+      alt: "New water service pipe laid in an open trench.",
+      href: "/work/water-service-line/",
+    },
+  },
+  {
+    id: "waterproofing",
+    title: "Basement waterproofing and French drains",
+    paragraphs: [
+      "Jerry has posted that they also do waterproofing. One basement was taking water behind the wall in the back right corner.",
+      "They removed the drywall, excavated to the footer, and installed a 4-inch drain pipe. They drilled 7/8-inch holes through the block, installed dimple board to send water to the new French drain, and set a sump pump with a 1-1/2 inch discharge to the outside downspout.",
+    ],
+    links: [
+      { href: "/work/basement-waterproofing/", label: "Basement waterproofing" },
+    ],
+    photo: {
+      group: "jobs/basement-waterproofing",
+      id: "02",
+      alt: "A basement footer excavated for a French drain, with dimple board on the block.",
+      href: "/work/basement-waterproofing/",
+    },
+  },
+  {
+    id: "commercial",
+    title: "Commercial plumbing",
+    paragraphs: [
+      "Residential and commercial plumbing, including shops and community buildings.",
+      "Palette Nail and Lash Bar had just moved in and had no plumbing for two pedicure chairs. Jerry looked on a Wednesday evening and had new PVC drains, water lines, and thermostatic mixing valves in before Monday, so the water at each chair could be limited against scalding.",
+      "At Scharmyn Field he installed 3 new toilets. A restaurant sewer scope is the other commercial story.",
+    ],
+    links: [
+      { href: "/work/palette-nail-lash-bar/", label: "Palette Nail and Lash Bar" },
+      { href: "/work/scharmyn-park-toilets/", label: "Scharmyn Field toilets" },
+      { href: "/work/?type=commercial", label: "Commercial stories" },
+    ],
+    photo: {
+      group: "jobs/palette-nail-lash-bar",
+      id: "04",
+      alt: "New PVC and mixing valves under pedicure chairs at a nail salon.",
+      href: "/work/palette-nail-lash-bar/",
+    },
+  },
+];
+---
+
+<Base
+  title="Plumbing Services"
+  description="Plumbing services from Coulehan Plumbing LLC in Pittsburgh: repairs, remodels, drain cleaning, hydro jetting, sewer cameras, combi boilers, water service, waterproofing, and 24-hour emergency service."
+>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow"><Drop size={16} /> Services</p>
+      <h1>Plumbing, from the repair to the remodel.</h1>
+      <p class="lede">
+        Residential and commercial plumbing in Pittsburgh: repairs, remodels,
+        drains, sewers, water heaters, and 24-hour emergency service.
+      </p>
+    </div>
+  </header>
+
+  <section class="section" >
+    <div class="container">
+      <div class="service-grid service-page-grid">
+        {
+          servicePages.map((page) => (
+            <article class="service-card" id={page.href.split("/").filter(Boolean).pop()}>
+              <a href={page.href}>
+                <p class="card-kicker">
+                  <Drop size={16} />
+                </p>
+                <h3>{page.label}</h3>
+                <p>{serviceBlurbs[page.href]}</p>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" >
+    <div class="container">
+      {
+        blocks.map((block) => (
+          <article class="service-block" id={block.id}>
+            <div class="service-copy">
+              <h2>{block.title}</h2>
+              {block.paragraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+              <ul class="service-links">
+                {block.links.map((link) => (
+                  <li>
+                    <a href={link.href}>{link.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {block.photo ? (
+              <a class="service-shot" href={block.photo.href}>
+                <Photo
+                  group={block.photo.group}
+                  id={block.photo.id}
+                  alt={block.photo.alt}
+                  sizes="(min-width: 720px) 40vw, 100vw"
+                />
+              </a>
+            ) : (
+              <div class="service-mark" aria-hidden="true">
+                <Drop size={72} />
+              </div>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </section>
+  <CtaBand />
+</Base>

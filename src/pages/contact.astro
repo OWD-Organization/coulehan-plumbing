@@ -1,0 +1,68 @@
+---
+import Base from "../layouts/Base.astro";
+import Drop from "../components/Drop.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+import { site } from "../data/site";
+---
+
+<Base
+  title="Contact"
+  description="Call Coulehan Plumbing LLC at (412) 513-9335 or email coulehanplumbing@gmail.com. Request a quote for plumbing in Pittsburgh, PA 15226."
+>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow"><Drop size={16} /> Contact</p>
+      <h1>Call Jerry, or send a note.</h1>
+      <p class="lede">
+        Call {site.phoneDisplay} or email {site.email}. {site.hours}.
+      </p>
+    </div>
+  </header>
+
+  <section class="section" >
+    <div class="container split">
+      <div>
+        <QuoteForm />
+      </div>
+      <div>
+        <ul class="contact-list">
+          <li>
+            <a href={`tel:${site.phoneTel}`}>{site.phoneDisplay}</a>
+          </li>
+          <li>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </li>
+          <li>{site.addressLine}</li>
+          <li>{site.hours}</li>
+        </ul>
+        <iframe
+          class="map-frame"
+          title="Map of the Pittsburgh 15226 area, including Brookline"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-80.08%2C40.36%2C-79.96%2C40.43&amp;layer=mapnik"
+          loading="lazy"
+        ></iframe>
+        <p class="fine">
+          Pittsburgh, PA 15226, the Brookline area.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="truck-band">
+    <div class="container">
+      <h2>Look for the truck</h2>
+      <p>White service truck, blue drop, and {site.phoneDisplay} on the side.</p>
+      <picture>
+        <source type="image/webp" srcset="/media/brand/truck-side-960.webp" />
+        <img
+          src="/media/brand/truck-side-960.jpg"
+          width="960"
+          height="611"
+          alt="Side view of the white Coulehan Plumbing service truck."
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+    </div>
+  </section>
+</Base>

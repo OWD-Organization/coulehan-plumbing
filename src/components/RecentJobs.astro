@@ -1,0 +1,47 @@
+---
+import Photo from "./Photo.astro";
+import Drop from "./Drop.astro";
+import type { Job } from "../data/jobs";
+
+interface Props {
+  jobs: Job[];
+}
+
+const { jobs } = Astro.props;
+---
+
+{
+  jobs.length > 0 && (
+    <section class="recent-jobs" aria-labelledby="recent-jobs-title">
+      <h2 id="recent-jobs-title">Recent jobs</h2>
+      {jobs.map((job) => (
+        <article class="recent-job">
+          <h3>
+            <a href={`/work/${job.slug}/`}>{job.title}</a>
+          </h3>
+          <p class="recent-caption">{job.paragraphs[0]}</p>
+          {job.photos.length > 0 ? (
+            <ul class="recent-photos">
+              {job.photos.map((photo) => (
+                <li>
+                  <Photo
+                    group={`jobs/${job.slug}`}
+                    id={photo.id}
+                    alt={photo.alt}
+                    sizes="(min-width: 720px) 40vw, 100vw"
+                  />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div class="video-fallback recent-video">
+              <Drop size={48} />
+              <span>Video on Facebook</span>
+              <a href={job.facebookUrl}>Watch the post</a>
+            </div>
+          )}
+        </article>
+      ))}
+    </section>
+  )
+}
