@@ -207,6 +207,7 @@ p {
   text-decoration: none;
   margin-right: auto;
   min-height: 48px;
+  flex-shrink: 0;
 }
 
 .brand img {
@@ -264,7 +265,7 @@ p {
   display: none;
 }
 
-.nav-cta,
+.header-tools .nav-cta,
 .mobile-menu-head,
 .mobile-call,
 .mobile-quote {
@@ -536,8 +537,13 @@ p {
 .hero {
   background: var(--gradient-hero);
   color: var(--white);
-  padding: 2.5rem 0 2.75rem;
+  padding: 1.6rem 0 2.25rem;
   overflow: hidden;
+}
+
+.hero h1 {
+  font-size: clamp(2.15rem, 4vw, 3.35rem);
+  margin-bottom: 0.35rem;
 }
 
 .hero-content {
@@ -602,7 +608,9 @@ header.page-hero .eyebrow,
 }
 
 .hero .lede {
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.15rem;
+  font-size: 1.15rem;
+  line-height: 1.4;
 }
 
 .person-name,
@@ -633,13 +641,13 @@ header.page-hero .master-line {
 }
 
 .hero-photo {
-  margin-top: 2.5rem;
+  margin-top: 1.35rem;
 }
 
 .hero-photo img {
   width: 100%;
-  height: min(68vh, 560px);
-  min-height: 280px;
+  height: min(46vh, 440px);
+  min-height: 240px;
   object-fit: cover;
   object-position: center 28%;
   border-radius: var(--radius-xl);
@@ -1379,12 +1387,12 @@ dialog#lightbox::backdrop {
   .nav-toggle,
   .nav-scrim,
   .mobile-menu-head,
-  .mobile-call,
-  .mobile-quote {
+  .site-nav > .mobile-call,
+  .site-nav > .mobile-quote {
     display: none;
   }
 
-  .nav-cta {
+  .header-tools .nav-cta {
     display: inline-flex;
   }
 
