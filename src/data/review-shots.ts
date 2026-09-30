@@ -22,7 +22,7 @@ export const reviewShots = [
   {
     id: "jb",
     width: 504,
-    height: 318,
+    height: 242,
     alt: 'Google review by JB, 5 stars: "Jerry is efficient, on time, easy to get in contact with, and his prices are fair. His work is also done extremely well. I would recommend him for all of your plumbing needs!!"',
   },
   {
