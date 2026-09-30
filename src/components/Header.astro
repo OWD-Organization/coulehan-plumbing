@@ -18,7 +18,7 @@ function current(href: string) {
         group="brand"
         id="mark"
         alt=""
-        sizes="52px"
+        sizes="72px"
         loading="eager"
         fetchpriority="low"
       />
@@ -27,15 +27,11 @@ function current(href: string) {
         <span>Plumbing</span>
       </span>
     </a>
-    <button
-      class="nav-toggle"
-      type="button"
-      aria-expanded="false"
-      aria-controls="site-nav"
-    >
-      Menu
-    </button>
+    <button class="nav-scrim" type="button" aria-label="Close menu" tabindex="-1"></button>
     <nav id="site-nav" class="site-nav" aria-label="Primary">
+      <div class="mobile-menu-head">
+        <button class="menu-close" type="button">Close</button>
+      </div>
       {
         nav.map((item) =>
           item.href === "/services/" ? (
@@ -82,10 +78,31 @@ function current(href: string) {
           ),
         )
       }
-      <a class="nav-phone" href={`tel:${site.phoneTel}`}>
-        Call {site.phoneDisplay}
-      </a>
+      <a class="mobile-call" href={`tel:${site.phoneTel}`}>Call {site.phoneDisplay}</a>
+      <a class="btn btn-primary mobile-quote" href="/contact/">Request a quote</a>
     </nav>
+    <div class="header-tools">
+      <a class="nav-phone" href={`tel:${site.phoneTel}`}>
+        <span class="nav-phone-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+          </svg>
+        </span>
+        <span class="nav-phone-text">
+          <span class="nav-phone-label">{site.hours}</span>
+          <span class="nav-phone-number">{site.phoneDisplay}</span>
+        </span>
+      </a>
+      <a class="btn btn-primary nav-cta" href="/contact/">Request a quote</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+        <span class="menu-word">MENU</span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -95,7 +112,9 @@ function current(href: string) {
   const navEl = document.querySelector("#site-nav");
   const drop = document.querySelector(".nav-drop");
   const subToggle = document.querySelector(".sub-toggle");
-  const desktop = window.matchMedia("(min-width: 1100px)");
+  const scrim = document.querySelector(".nav-scrim");
+  const menuClose = document.querySelector(".menu-close");
+  const desktop = window.matchMedia("(min-width: 1180px)");
 
   function setServicesOpen(open: boolean) {
     if (!(subToggle instanceof HTMLButtonElement) || !(drop instanceof HTMLElement)) return;
@@ -107,15 +126,20 @@ function current(href: string) {
     const close = () => {
       header.classList.remove("is-open");
       toggle.setAttribute("aria-expanded", "false");
-      toggle.textContent = "Menu";
+      document.body.classList.remove("nav-open");
       setServicesOpen(false);
     };
+    const openMenu = () => {
+      header.classList.add("is-open");
+      toggle.setAttribute("aria-expanded", "true");
+      document.body.classList.add("nav-open");
+    };
     toggle.addEventListener("click", () => {
-      const open = header.classList.toggle("is-open");
-      toggle.setAttribute("aria-expanded", open ? "true" : "false");
-      toggle.textContent = open ? "Close" : "Menu";
-      if (!open) setServicesOpen(false);
+      if (header.classList.contains("is-open")) close();
+      else openMenu();
     });
+    scrim?.addEventListener("click", close);
+    menuClose?.addEventListener("click", close);
     navEl.addEventListener("click", (event) => {
       const target = event.target;
       if (target instanceof HTMLElement && target.closest("a")) close();
@@ -125,6 +149,7 @@ function current(href: string) {
       const servicesFocused = drop instanceof HTMLElement && drop.contains(document.activeElement);
       close();
       if (servicesFocused && subToggle instanceof HTMLButtonElement) subToggle.focus();
+      else if (toggle instanceof HTMLButtonElement) toggle.focus();
     });
   }
 

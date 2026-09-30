@@ -52,28 +52,8 @@ const services = [
   documentTitle="Coulehan Plumbing LLC | Pittsburgh Plumber"
   description="Owner-operated plumber in Pittsburgh, PA. Jerry Coulehan, Master Plumber. Repairs, remodels, sewer work, and 24-hour emergency service. Call (412) 513-9335."
 >
-  <section class="hero hero-truck">
-    <div class="hero-media">
-      <picture>
-        <source
-          type="image/webp"
-          srcset="/media/brand/truck-hero-900.webp 900w, /media/brand/truck-hero-1350.webp 1350w"
-          sizes="100vw"
-        />
-        <img
-          src="/media/brand/truck-hero-1350.jpg"
-          srcset="/media/brand/truck-hero-900.jpg 900w, /media/brand/truck-hero-1350.jpg 1350w"
-          sizes="100vw"
-          width="1350"
-          height="1800"
-          alt="Coulehan Plumbing service truck parked on a residential street behind an open trench, with a mini excavator and traffic cones."
-          fetchpriority="high"
-          decoding="async"
-        />
-      </picture>
-      <div class="hero-scrim" aria-hidden="true"></div>
-    </div>
-    <div class="container hero-copy">
+  <section class="hero">
+    <div class="container hero-content">
       <p class="eyebrow"><Drop size={16} /> Pittsburgh, PA</p>
       <p class="emergency-flag">24/7 Emergency Plumbing</p>
       <h1>{site.slogan}</h1>
@@ -87,10 +67,31 @@ const services = [
         emergency service.
       </p>
       <div class="cta-row">
-        <a class="btn btn-light" href={`tel:${site.phoneTel}`}>Call {site.phoneDisplay}</a>
-        <a class="btn btn-line" href="/contact/">Request a quote</a>
+        <a class="btn btn-primary" href={`tel:${site.phoneTel}`}>Call {site.phoneDisplay}</a>
+        <a class="btn btn-ghost" href="/contact/">Request a quote</a>
       </div>
-      <ul class="trust">
+    </div>
+    <div class="container hero-photo">
+      <picture>
+        <source
+          type="image/webp"
+          srcset="/media/brand/truck-hero-900.webp 900w, /media/brand/truck-hero-1350.webp 1350w"
+          sizes="(min-width: 1280px) 1232px, 100vw"
+        />
+        <img
+          src="/media/brand/truck-hero-1350.jpg"
+          srcset="/media/brand/truck-hero-900.jpg 900w, /media/brand/truck-hero-1350.jpg 1350w"
+          sizes="(min-width: 1280px) 1232px, 100vw"
+          width="1350"
+          height="1800"
+          alt="Coulehan Plumbing service truck parked on a residential street behind an open trench, with a mini excavator and traffic cones."
+          fetchpriority="high"
+          decoding="async"
+        />
+      </picture>
+    </div>
+    <div class="container">
+      <ul class="hero-badges">
         <li>
           <a href={site.googleReviews} target="_blank" rel="noopener">
             5.0 stars, {site.reviewCount} Google reviews
@@ -99,7 +100,9 @@ const services = [
         <li>
           <a href={site.bbb} target="_blank" rel="noopener">BBB Accredited, A+ Rated</a>
         </li>
-        <li><a href={site.facebook}>100% recommend · 80 Facebook reviews</a></li>
+        <li>
+          <a href={site.facebook}>100% recommend · 80 Facebook reviews</a>
+        </li>
       </ul>
     </div>
   </section>
@@ -137,7 +140,7 @@ const services = [
     </div>
   </section>
 
-  <section class="section" style="padding-top: 0">
+  <section class="section" >
     <div class="container">
       <div class="section-head">
         <h2>Recent work</h2>
@@ -152,7 +155,7 @@ const services = [
     </div>
   </section>
 
-  <section class="section" style="padding-top: 0">
+  <section class="section" >
     <div class="container split">
       <div>
         <p class="eyebrow"><Drop size={16} /> 15226</p>
