@@ -1495,6 +1495,7 @@ dialog#lightbox::backdrop {
   .nav-drop {
     display: flex;
     align-items: center;
+    gap: 0.2rem;
   }
 
   .nav-services-link {
@@ -1508,10 +1509,18 @@ dialog#lightbox::backdrop {
   }
 
   .sub-toggle {
+    position: relative;
     width: auto;
-    min-width: 44px;
+    min-width: 0;
     min-height: 44px;
-    padding: 0 0.15rem;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .sub-toggle::before {
+    content: "";
+    position: absolute;
+    inset: 0 -0.4rem;
   }
 
   .sub-toggle-label {
@@ -1572,6 +1581,33 @@ dialog#lightbox::backdrop {
   }
 }
 
+@media (min-width: 1100px) {
+  .nav-phone {
+    width: auto;
+    gap: 0.75rem;
+    justify-content: flex-start;
+  }
+
+  .nav-phone-text {
+    display: block;
+    text-align: left;
+  }
+
+  .nav-phone-label {
+    display: none;
+  }
+
+  .nav-phone-number {
+    display: block;
+    color: var(--white);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+}
+
 @media (min-width: 1200px) {
   .site-nav {
     gap: 2rem;
@@ -1602,30 +1638,10 @@ dialog#lightbox::backdrop {
     gap: 2.25rem;
   }
 
-  .nav-phone {
-    width: auto;
-    gap: 0.75rem;
-    justify-content: flex-start;
-  }
-
-  .nav-phone-text {
-    display: block;
-    text-align: left;
-  }
-
   .nav-phone-label {
     display: block;
     color: rgba(255, 255, 255, 0.7);
     font-size: 0.85rem;
-    line-height: 1.2;
-  }
-
-  .nav-phone-number {
-    display: block;
-    color: var(--white);
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.05rem;
     line-height: 1.2;
   }
 }
