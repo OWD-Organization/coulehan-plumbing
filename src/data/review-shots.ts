@@ -4,7 +4,7 @@ export const reviewShots = [
   {
     id: "hannah",
     width: 504,
-    height: 268,
+    height: 299,
     alt: 'Google review by Hannah Grace, 5 stars: "Jerry was the best. Very easy to contact - responded quickly and the communication was excellent. The job was not an emergency but he managed to get it done within days of calling - above and beyond expectations. I would not hesitate to recommend him and his company!"',
   },
   {
