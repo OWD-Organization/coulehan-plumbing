@@ -1,7 +1,9 @@
 export const site = {
   name: "Coulehan Plumbing LLC",
+  /** Wordmark and other display uses. The legal name stays in copyright and JSON-LD. */
+  brand: "Coulehan Plumbing",
   owner: "Jerry Coulehan",
-  ownerTitle: "Owner, Master Plumber",
+  ownerTitle: "Master Plumber",
   phoneDisplay: "(412) 513-9335",
   phoneTel: "+14125139335",
   email: "coulehanplumbing@gmail.com",
@@ -9,8 +11,16 @@ export const site = {
   region: "PA",
   postalCode: "15226",
   addressLine: "Pittsburgh, PA 15226",
+  hours: "Open 24 hours, 7 days a week",
+  foundingYear: "2014",
+  ratingValue: "5.0",
+  reviewCount: 229,
   facebook: "https://www.facebook.com/Coulehan724/",
   google: "https://g.co/kgs/sbPr35",
+  googleReviews: "https://maps.google.com/?cid=9205564541200265602",
+  googleWriteReview:
+    "https://search.google.com/local/writereview?placeid=ChIJhd9ncqlMrSMRgnEsUy28wH8",
+  bbb: "https://www.bbb.org/us/pa/pittsburgh/profile/plumber/coulehan-plumbing-llc-0141-71131428",
   website: "https://coulehanplumbing.com/",
   slogan: "One call that does it all.",
   /** Eyedropped from logo.jpg: pixel (0,0) is the logo ground. */
@@ -26,6 +36,13 @@ export const nav = [
   { href: "/service-area/", label: "Service Area" },
   { href: "/work/", label: "Examples of My Work" },
   { href: "/contact/", label: "Contact" },
+] as const;
+
+export const servicePages = [
+  { href: "/services/hot-water-tank-replacement/", label: "Hot Water Tank Replacement" },
+  { href: "/services/sewer-repair/", label: "Sewer Repair" },
+  { href: "/services/trap-replacement/", label: "Trap Replacement" },
+  { href: "/services/water-filtration/", label: "Water Filtration" },
 ] as const;
 
 export function plumberJsonLd(origin: string) {
@@ -50,12 +67,20 @@ export function plumberJsonLd(origin: string) {
       "@type": "City",
       name: "Pittsburgh",
     },
+    openingHours: "Mo-Su 00:00-23:59",
+    foundingDate: site.foundingYear,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: site.ratingValue,
+      reviewCount: String(site.reviewCount),
+      bestRating: "5",
+    },
     employee: {
       "@type": "Person",
       name: site.owner,
       jobTitle: site.ownerTitle,
     },
-    sameAs: [site.facebook, site.google],
+    sameAs: [site.facebook, site.google, site.bbb],
     description:
       "Owner-operated plumbing company in Pittsburgh, PA. Residential and commercial repairs, installs, remodels, drain cleaning, hydro jetting, sewer camera inspections, and 24-hour emergency service.",
     knowsAbout: [

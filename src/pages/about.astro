@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import Photo from "../components/Photo.astro";
 import Drop from "../components/Drop.astro";
 import CtaBand from "../components/CtaBand.astro";
+import Reviews from "../components/Reviews.astro";
 import { site } from "../data/site";
 ---
 
@@ -13,11 +14,12 @@ import { site } from "../data/site";
   <header class="page-hero">
     <div class="container">
       <p class="eyebrow"><Drop size={16} /> About</p>
-      <h1>Owner-operated. Jerry answers the work.</h1>
+      <h1>{site.owner}</h1>
+      <p class="master-line">{site.ownerTitle}</p>
       <p class="lede">
-        Coulehan Plumbing LLC is a small plumbing company in Pittsburgh, PA
-        15226. Jerry Coulehan is the owner and a Master Plumber. The shop has
-        been serving the community for over a decade.
+        Coulehan Plumbing LLC is an owner-operated plumbing company in
+        Pittsburgh, PA 15226. Serving Pittsburgh since {site.foundingYear}.
+        {site.hours}.
       </p>
     </div>
   </header>
@@ -25,39 +27,23 @@ import { site } from "../data/site";
   <section class="section" style="padding-top: 1rem">
     <div class="container split">
       <div class="prose">
-        <p>
-          His posts sign off the same way, job after job: one call that does it
-          all. Residential and commercial. He writes the jobs up himself, from
-          a kitchen ceiling full of new PVC to a French drain in a wet basement.
-        </p>
-        <p>
-          This page sticks to what is already public. A longer bio, the year the
-          company opened, and a street address are not filled in, because they
-          were not in the source material.
-        </p>
         <h2>What checks out</h2>
         <div class="trust-grid" style="grid-template-columns: 1fr">
           <article class="trust-card">
-            <h3>BBB accredited</h3>
-            <p>
-              The Facebook intro says the business is accredited with the Better
-              Business Bureau. A profile link was not in the archive.
-            </p>
+            <h3>BBB Accredited, A+ Rated</h3>
+            <p>Accredited since 7/9/2025.</p>
+            <p><a href={site.bbb} target="_blank" rel="noopener">BBB profile</a></p>
           </article>
           <article class="trust-card">
-            <h3>Google Verified Business</h3>
+            <h3>5.0 stars, {site.reviewCount} Google reviews</h3>
+            <p>The reviews on this page are quoted word for word.</p>
             <p>
-              The same intro says the company is a Google Verified Business, and
-              points to a short link.
+              <a href={site.googleReviews} target="_blank" rel="noopener">Read all our Google reviews</a>
             </p>
-            <p><a href={site.google}>Open the Google link from Facebook</a></p>
           </article>
           <article class="trust-card">
             <h3>100% recommend</h3>
-            <p>
-              Facebook shows 100% recommend, from 80 reviews. Individual reviews
-              are not quoted on this site. None were provided.
-            </p>
+            <p>Facebook shows 100% recommend, from 80 reviews.</p>
             <p><a href={site.facebook}>Facebook page</a></p>
           </article>
         </div>
@@ -82,35 +68,7 @@ import { site } from "../data/site";
       </div>
     </div>
 
-    <div class="container">
-      <aside class="todo">
-        <p>
-          <strong>TODO — confirm with Jerry before this goes live.</strong>
-        </p>
-        <ul class="drop-list">
-          <li>
-            The Facebook intro contains “HP 04732”. It may be a registration or
-            license number. It is not confirmed, so it is not shown anywhere on
-            this site as a license.
-          </li>
-          <li>
-            Hours. Facebook says “Always open.” The current website hours block
-            says 8am–5pm and is broken. The current site also advertises
-            24-hour emergency service. Which hours should the new site publish?
-          </li>
-          <li>
-            Founding year. The current site says “over a decade.” The exact year
-            is not in the source material.
-          </li>
-          <li>
-            A short bio in Jerry’s own words, and whether he wants the Master
-            Plumber line worded a specific way.
-          </li>
-          <li>Street address. Facebook only gives Pittsburgh, PA 15226-1120.</li>
-          <li>BBB profile URL, if he wants the badge linked.</li>
-        </ul>
-      </aside>
-    </div>
   </section>
+  <Reviews />
   <CtaBand />
 </Base>

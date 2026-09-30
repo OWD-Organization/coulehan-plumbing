@@ -48,12 +48,12 @@ Job pages keep Jerry Coulehan’s meaning. Typos and grammar were cleaned up. Ha
 
 Confirm these before the site is indexed or treated as live.
 
-1. **Hours.** Facebook says “Always open.” The current website hours block says 8am–5pm and is broken. The current site also advertises 24-hour emergency service. What should the new site publish for shop hours, and is emergency service truly 24 hours?
-2. **“HP 04732”.** It appears in the Facebook intro. It might be a registration or license number. It is **not** shown as a license. What is it, and should it be published?
-3. **Street address.** Facebook only gives Pittsburgh, PA 15226-1120. The map has no pin until there is a street.
-4. **Founding year.** The current site says “over a decade.” The exact year is unknown.
-5. **Master Plumber line.** Jerry Coulehan is described as owner and Master Plumber (from a podcast page, reasonably reliable). Confirm the wording he wants. The podcast title was not in the source pack, so it is not named.
-6. **Bio.** There is no owner bio beyond what is public. A short paragraph in his words would help the About page.
+1. **Hours.** Published as “Open 24 hours, 7 days a week,” with 24/7 emergency plumbing. JSON-LD `openingHours` is `Mo-Su 00:00-23:59`.
+2. **License and registration numbers.** None are published.
+3. **Location.** Pittsburgh, PA 15226 only. There is no street address on the site or in JSON-LD.
+4. **Founding year.** In business since 2014. JSON-LD `foundingDate` is `2014`.
+5. **Master Plumber line.** Under Jerry Coulehan’s name the line is only “Master Plumber.”
+6. **Bio.** No longer biography. The line under his name is “Master Plumber.”
 7. **Service-area towns.** The Service Area page is written around Pittsburgh and the South Hills / Brookline (15226). The neighborhood list is a **draft** and must be confirmed, cut, or extended. Does he want West View / Ross Township listed because of the Scharmyn Field job, or was that a one-off?
 8. **Scharmyn Field caption.** The Facebook post was cut off after “A few families in the area have been…” Ask Jerry for the rest if he wants it on the site. The field name comes from the sign in his photos.
 9. **August 11, 2026 video.** The post has no written description. The archive folder was labeled bathroom-drain. That label is **not** used as the title. What should this job be called?
@@ -61,19 +61,19 @@ Confirm these before the site is indexed or treated as live.
 11. **Restaurant sewer post.** It is the prep (scoped and laid out), not a finished replacement. Is it all right to show it that way?
 12. **Photos of private homes.** Some frames show yards, basements, and streets. Does Jerry want any job withheld?
 13. **Lead form.** The contact form validates in the browser and then stops. It posts nowhere. Wire it to the endpoint Orion wants (form service, email, or CRM).
-14. **BBB profile URL.** Accreditation is stated. No profile link was in the archive.
-15. **Google link.** The Facebook intro uses `https://g.co/kgs/sbPr35`. Replace with the canonical Business Profile URL if he has one.
+14. **BBB.** The badge links to the BBB profile. It reads “BBB Accredited, A+ Rated.”
+15. **Google link.** Reviews use the Maps place link. The Facebook short link is still on the older “Google Business” footer item.
 16. **Domain.** Schema and the footer assume `https://coulehanplumbing.com/`. Confirm that is still the production domain.
 17. **Logo.** The square Facebook profile image is used (dark ground, blue drop, pipes, wordmark). Ask if he has a horizontal logo he prefers in the header.
 18. **Hydro jetting and drain cleaning** are on the current site and on this Services page, with no matching photo story. Keep them?
 19. **Employees.** Posts say “we.” The site says owner-operated and does not name anyone but Jerry. Are there people he wants named?
 20. **Insurance, PA license number, and pricing.** Not stated. Do not add them until he provides the wording.
-21. **Reviews.** Facebook shows 100% recommend (80 reviews). No individual review is quoted, because none were provided. Does he want a reviews section later, with permission?
+21. **Reviews.** Five Google reviews are quoted verbatim. Facebook still shows 100% recommend (80 reviews).
 22. **Spring-well photos** are only about 443 pixels wide. They are not enlarged. A sharper set would help that story.
 
 ## What this preview does not do
 
 - It does not send quote requests.
 - It does not embed Facebook video. Video-only posts link out.
-- It does not invent a street address, license number, founding year, or hours.
+- It does not publish a street address or a license number. Hours are open 24 hours, 7 days a week. The founding year on the site is 2014.
 - It does not include a sitemap, and it must stay `noindex` until the TODOs above are resolved and someone deliberately removes the robots rules.

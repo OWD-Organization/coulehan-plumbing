@@ -1,6 +1,6 @@
 ---
 import Photo from "./Photo.astro";
-import { nav, site } from "../data/site";
+import { nav, servicePages, site } from "../data/site";
 
 const path = Astro.url.pathname;
 
@@ -11,6 +11,7 @@ function current(href: string) {
 ---
 
 <header class="site-header">
+  <p class="hours-bar">{site.hours}</p>
   <div class="container bar">
     <a class="brand" href="/">
       <Photo
@@ -36,11 +37,26 @@ function current(href: string) {
     </button>
     <nav id="site-nav" class="site-nav" aria-label="Primary">
       {
-        nav.map((item) => (
-          <a href={item.href} aria-current={current(item.href)}>
-            {item.label}
-          </a>
-        ))
+        nav.map((item) =>
+          item.href === "/services/" ? (
+            <div class="nav-drop">
+              <a href={item.href} aria-current={current(item.href)}>
+                {item.label}
+              </a>
+              <div class="submenu">
+                {servicePages.map((page) => (
+                  <a href={page.href} aria-current={current(page.href)}>
+                    {page.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <a href={item.href} aria-current={current(item.href)}>
+              {item.label}
+            </a>
+          ),
+        )
       }
       <a class="nav-phone" href={`tel:${site.phoneTel}`}>
         Call {site.phoneDisplay}

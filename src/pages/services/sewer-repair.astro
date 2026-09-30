@@ -1,0 +1,46 @@
+---
+import ServiceDetail from "../../components/ServiceDetail.astro";
+import { jobBySlug } from "../../data/jobs";
+
+const jobs = ["sewer-camera-inspection", "sewer-repair", "restaurant-sewer-line-prep"].map(
+  (slug) => jobBySlug(slug)!,
+);
+---
+
+<ServiceDetail
+  title="Sewer Repair"
+  description="Sewer repair, sewer line cleaning, and camera inspection from Coulehan Plumbing LLC in Pittsburgh, PA 15226. Call (412) 513-9335."
+  intro="Sewer line repair, cleaning, and camera inspection for homes and businesses in Pittsburgh."
+  signs={[
+    "More than one drain backing up",
+    "A sewage odor",
+    "Gurgling in the drains",
+    "A wet spot in the yard along the line",
+    "Backups that keep coming back",
+  ]}
+  involves={[
+    "Run a camera when the line needs to be seen",
+    "Clean the line when it can be cleared",
+    "Repair or replace the damaged section when the pipe itself has failed",
+  ]}
+  faqs={[
+    {
+      question: "Do you clean sewer lines and inspect them, or only replace them?",
+      answer: "Cleaning, camera inspection, and repair are all part of this work.",
+    },
+    {
+      question: "What if more than one fixture is backing up?",
+      answer:
+        "That can point to a shared line. Call and say which fixtures are affected.",
+    },
+    {
+      question: "Do you work on homes and businesses?",
+      answer: "Yes. Residential and commercial calls.",
+    },
+    {
+      question: "Will you say what the inspection showed?",
+      answer: "Yes. Ask what the camera or the opened line showed.",
+    },
+  ]}
+  jobs={jobs}
+/>

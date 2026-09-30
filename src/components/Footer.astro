@@ -8,11 +8,13 @@ import { nav, site } from "../data/site";
     <div class="footer-brand">
       <Photo group="brand" id="logo" alt="Coulehan Plumbing logo" sizes="96px" />
       <p>
-        <strong>{site.name}</strong><br />
+        <strong>{site.brand}</strong><br />
         {site.slogan}
       </p>
       <p class="fine">
-        {site.addressLine}. Owner-operated. Jerry Coulehan, Master Plumber.
+        {site.addressLine}. Owner-operated.<br />
+        {site.owner}<br />
+        {site.ownerTitle}
       </p>
     </div>
     <div>
@@ -31,12 +33,11 @@ import { nav, site } from "../data/site";
         <li><a href={site.facebook}>Facebook</a></li>
         <li><a href={site.google}>Google Business</a></li>
       </ul>
-      <p class="fine">
-        Hours: TODO. Facebook says “Always open.” The old website hours block
-        (8am–5pm) is broken. 24-hour emergency service is what the current site
-        advertises. Confirm the real hours with Jerry.
-      </p>
+      <p class="fine">{site.hours}</p>
     </div>
+  </div>
+  <div class="container">
+    <p class="fine copyright">© {new Date().getFullYear()} {site.name}</p>
   </div>
 </footer>
 

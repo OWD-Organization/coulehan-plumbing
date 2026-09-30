@@ -3,6 +3,14 @@ import Base from "../layouts/Base.astro";
 import Photo from "../components/Photo.astro";
 import Drop from "../components/Drop.astro";
 import CtaBand from "../components/CtaBand.astro";
+import { servicePages, site } from "../data/site";
+
+const serviceBlurbs: Record<string, string> = {
+  "/services/hot-water-tank-replacement/": "Tank and tankless installation and repair.",
+  "/services/sewer-repair/": "Sewer line cleaning, camera inspection, and repair.",
+  "/services/trap-replacement/": "P-traps under sinks and tubs, drain traps, leaks, and odors.",
+  "/services/water-filtration/": "Filtration systems and water softener installation.",
+};
 
 const blocks = [
   {
@@ -22,8 +30,7 @@ const blocks = [
     id: "emergency",
     title: "24-hour emergency service",
     paragraphs: [
-      "The current Coulehan Plumbing website advertises 24-hour emergency service for residential and commercial calls. Facebook lists the page as always open.",
-      "The hours block on the old site (8am–5pm) does not match that, and it is broken. Until Jerry confirms the schedule, this page repeats only what those two sources already say.",
+      `${site.hours}. 24/7 emergency plumbing for residential and commercial calls.`,
     ],
     links: [{ href: "/contact/", label: "Call or request a quote" }],
     photo: null,
@@ -55,7 +62,10 @@ const blocks = [
       "Drain cleaning and hydro jetting are both listed on the current website. This photo set does not include a finished hydro-jetting story, so there is no job photo attached here.",
       "If a drain is backing up, the next step Jerry shows in his posts is often a camera, then the repair.",
     ],
-    links: [{ href: "/services/#sewers", label: "Sewer camera and repair" }],
+    links: [
+      { href: "/services/#sewers", label: "Sewer camera and repair" },
+      { href: "/services/trap-replacement/", label: "Trap replacement" },
+    ],
     photo: null,
   },
   {
@@ -71,6 +81,7 @@ const blocks = [
       { href: "/work/house-trap-replacement/", label: "House trap" },
       { href: "/work/sewer-repair/", label: "Terracotta to PVC" },
       { href: "/work/restaurant-sewer-line-prep/", label: "Restaurant sewer scope" },
+      { href: "/services/sewer-repair/", label: "Sewer repair" },
     ],
     photo: {
       group: "jobs/sewer-repair",
@@ -89,6 +100,7 @@ const blocks = [
     links: [
       { href: "/work/rinnai-combi-unit/", label: "Rinnai combi" },
       { href: "/work/navien-combo-unit/", label: "Navien combo" },
+      { href: "/services/hot-water-tank-replacement/", label: "Hot water tank replacement" },
     ],
     photo: {
       group: "jobs/rinnai-combi-unit",
@@ -107,6 +119,7 @@ const blocks = [
     links: [
       { href: "/work/water-service-line/", label: "Water service line" },
       { href: "/work/spring-well-filtration/", label: "Spring well and UV" },
+      { href: "/services/water-filtration/", label: "Water filtration" },
     ],
     photo: {
       group: "jobs/water-service-line",
@@ -171,6 +184,26 @@ const blocks = [
   </header>
 
   <section class="section" style="padding-top: 1.5rem">
+    <div class="container">
+      <div class="service-grid service-page-grid">
+        {
+          servicePages.map((page) => (
+            <article class="service-card">
+              <a href={page.href}>
+                <p class="card-kicker">
+                  <Drop size={16} />
+                </p>
+                <h3>{page.label}</h3>
+                <p>{serviceBlurbs[page.href]}</p>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0">
     <div class="container">
       {
         blocks.map((block) => (

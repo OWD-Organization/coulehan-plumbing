@@ -1057,3 +1057,213 @@ dialog#lightbox::backdrop {
     padding-bottom: 0;
   }
 }
+
+.hours-bar {
+  margin: 0;
+  text-align: center;
+  background: #10182a;
+  color: var(--white);
+  font-size: 0.92rem;
+  font-weight: 650;
+  padding: 0.45rem 1rem;
+}
+
+.emergency-flag {
+  display: inline-block;
+  margin: 0 0 0.9rem;
+  background: var(--drop);
+  color: var(--navy);
+  font-weight: 750;
+  letter-spacing: 0.01em;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+}
+
+.person-name,
+.master-line {
+  margin: 0;
+  font-weight: 650;
+}
+
+.hero .person-name {
+  margin-top: 0.9rem;
+  color: var(--white);
+}
+
+.hero .master-line,
+.page-hero .master-line {
+  margin-bottom: 0.8rem;
+}
+
+.hero .master-line {
+  color: var(--drop);
+}
+
+.page-hero .master-line {
+  color: var(--drop-ink);
+  font-size: 1.25rem;
+}
+
+.nav-drop {
+  position: relative;
+}
+
+.submenu {
+  display: none;
+}
+
+.copyright {
+  margin-top: 1.5rem;
+}
+
+.review-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.review-card {
+  margin: 0;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.15rem;
+}
+
+.stars {
+  margin: 0 0 0.45rem;
+  color: var(--brass);
+  letter-spacing: 0.12em;
+  font-size: 1.05rem;
+}
+
+.review-card blockquote {
+  margin: 0 0 0.8rem;
+  white-space: pre-wrap;
+}
+
+.review-card figcaption {
+  font-weight: 650;
+}
+
+.review-leave {
+  align-self: center;
+  font-weight: 650;
+}
+
+.service-page-grid {
+  margin-bottom: 0.5rem;
+}
+
+.service-detail h2 {
+  margin-top: 2rem;
+}
+
+.service-detail h2:first-child {
+  margin-top: 0;
+}
+
+.faq-list details {
+  border-top: 1px solid var(--line);
+  padding: 0.35rem 0;
+}
+
+.faq-list summary {
+  cursor: pointer;
+  font-weight: 650;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.faq-list p {
+  color: var(--muted);
+}
+
+.service-call {
+  margin-top: 2rem;
+}
+
+.recent-job {
+  margin: 0 0 2rem;
+}
+
+.recent-caption {
+  white-space: pre-wrap;
+}
+
+.recent-photos {
+  display: grid;
+  gap: 0.7rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.6rem 0 0;
+}
+
+.recent-photos img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+  background: var(--navy);
+}
+
+.recent-video {
+  min-height: 160px;
+  border-radius: 14px;
+  background: var(--navy);
+  color: var(--white);
+}
+
+.recent-video a {
+  color: var(--drop);
+  font-weight: 650;
+}
+
+@media (max-width: 1099px) {
+  .site-header.is-open .submenu {
+    display: block;
+  }
+
+  .submenu a {
+    padding-left: 0.85rem;
+  }
+}
+
+@media (min-width: 720px) {
+  .review-grid,
+  .recent-photos {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1100px) {
+  .nav-drop:hover .submenu,
+  .nav-drop:focus-within .submenu {
+    display: grid;
+  }
+
+  .submenu {
+    position: absolute;
+    top: calc(100% + 0.35rem);
+    left: 0;
+    z-index: 40;
+    min-width: 18.5rem;
+    padding: 0.4rem;
+    background: var(--navy-2);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+
+  .submenu::before {
+    content: "";
+    position: absolute;
+    top: -0.5rem;
+    left: 0;
+    right: 0;
+    height: 0.5rem;
+  }
+
+  .submenu a {
+    white-space: nowrap;
+  }
+}

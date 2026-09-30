@@ -6,6 +6,7 @@ import JobCard from "../components/JobCard.astro";
 import CtaBand from "../components/CtaBand.astro";
 import { jobs } from "../data/jobs";
 import { site } from "../data/site";
+import Reviews from "../components/Reviews.astro";
 
 const featured = [
   "kitchen-remodel-new-pvc",
@@ -25,12 +26,12 @@ const services = [
     text: "Kitchen and bath plumbing, rough-ins, and new construction.",
   },
   {
-    href: "/services/#sewers",
+    href: "/services/sewer-repair/",
     title: "Sewers and drains",
     text: "Camera inspections, cleaning, hydro jetting, and replacements.",
   },
   {
-    href: "/services/#boilers",
+    href: "/services/hot-water-tank-replacement/",
     title: "Combi boilers",
     text: "Rinnai and Navien units for hot water and heat.",
   },
@@ -56,12 +57,13 @@ const services = [
     <div class="container hero-grid">
       <div>
         <p class="eyebrow"><Drop size={16} /> Pittsburgh, PA</p>
+        <p class="emergency-flag">24/7 Emergency Plumbing</p>
         <h1>{site.slogan}</h1>
         <p class="lede">
-          Owner-operated plumbing in Pittsburgh. Jerry Coulehan is a Master
-          Plumber, and Coulehan Plumbing LLC has been serving this community for
-          over a decade.
+          Owner-operated plumbing in Pittsburgh. Serving Pittsburgh since {site.foundingYear}.
         </p>
+        <p class="person-name">{site.owner}</p>
+        <p class="master-line">{site.ownerTitle}</p>
         <p class="lede">
           Residential and commercial repairs, remodels, sewer work, and 24-hour
           emergency service.
@@ -71,8 +73,14 @@ const services = [
           <a class="btn btn-line" href="/contact/">Request a quote</a>
         </div>
         <ul class="trust">
-          <li>BBB accredited</li>
-          <li><a href={site.google}>Google Verified Business</a></li>
+          <li>
+            <a href={site.googleReviews} target="_blank" rel="noopener">
+              5.0 stars, {site.reviewCount} Google reviews
+            </a>
+          </li>
+          <li>
+            <a href={site.bbb} target="_blank" rel="noopener">BBB Accredited, A+ Rated</a>
+          </li>
           <li><a href={site.facebook}>100% recommend · 80 Facebook reviews</a></li>
         </ul>
       </div>
@@ -101,6 +109,11 @@ const services = [
         <p>
           The work on the current site, plus the jobs Jerry has been posting:
           remodels, sewers, boilers, water service, and waterproofing.
+          <a href="/services/hot-water-tank-replacement/">Hot water tanks</a>,
+          <a href="/services/sewer-repair/">sewer repair</a>,
+          <a href="/services/trap-replacement/">trap replacement</a>,
+          and
+          <a href="/services/water-filtration/">water filtration</a>.
         </p>
       </div>
       <div class="service-grid">
@@ -151,8 +164,8 @@ const services = [
       <div class="trust-card">
         <h3>A straight recommendation rate</h3>
         <p>
-          Facebook shows 100% recommend, from 80 reviews. This site does not
-          quote individual reviews. None were provided.
+          Facebook shows 100% recommend, from 80 reviews. Google reviews are
+          quoted below, word for word.
         </p>
         <p>
           <a href={site.facebook}>Coulehan Plumbing on Facebook</a>
@@ -161,5 +174,6 @@ const services = [
     </div>
   </section>
 
+  <Reviews />
   <CtaBand />
 </Base>

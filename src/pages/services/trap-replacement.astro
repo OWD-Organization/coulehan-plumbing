@@ -1,0 +1,45 @@
+---
+import ServiceDetail from "../../components/ServiceDetail.astro";
+import { jobBySlug } from "../../data/jobs";
+
+const jobs = ["house-trap-replacement"].map((slug) => jobBySlug(slug)!);
+---
+
+<ServiceDetail
+  title="Trap Replacement"
+  description="P-trap and drain trap replacement for leaks and odors from Coulehan Plumbing LLC in Pittsburgh, PA 15226. Call (412) 513-9335."
+  intro="Replacement of P-traps under sinks and tubs, and other drain traps, when a trap is leaking or letting odor through."
+  signs={[
+    "Water dripping under a sink or tub",
+    "A sewer smell at one fixture",
+    "A trap that is cracked, loose, or out of line",
+    "Staining inside a sink cabinet",
+  ]}
+  involves={[
+    "Find the trap under the sink or tub, or the drain trap the leak or odor is coming from",
+    "Replace a trap that is leaking, damaged, or not holding water",
+    "Reconnect the drain and check the joints for leaks",
+  ]}
+  faqs={[
+    {
+      question: "What is a P-trap?",
+      answer:
+        "It is the curved pipe under a sink or tub. Water sits in the curve so sewer gas stays in the drain line.",
+    },
+    {
+      question: "Why would a trap cause an odor?",
+      answer:
+        "If the trap is dry, loose, or damaged, odor can come out at that fixture.",
+    },
+    {
+      question: "Do you replace a trap that is leaking?",
+      answer: "Yes. Call and say which fixture is leaking.",
+    },
+    {
+      question: "Is a slow sink always the trap?",
+      answer:
+        "No. A slow drain can be the trap or something farther down the line. Call and describe it.",
+    },
+  ]}
+  jobs={jobs}
+/>
