@@ -1,0 +1,95 @@
+---
+import { site } from "../data/site";
+
+const services = [
+  "Repair",
+  "24-hour emergency",
+  "Drain cleaning",
+  "Hydro jetting",
+  "Sewer camera inspection",
+  "Sewer or house trap",
+  "Remodel or new construction",
+  "Water heater or combi boiler",
+  "Water service line",
+  "Well filtration",
+  "Waterproofing",
+  "Commercial",
+  "Not sure yet",
+];
+---
+
+<aside class="todo">
+  <p>
+    <strong>TODO: wire this form to a lead endpoint.</strong>
+    Submissions are not delivered. The preview checks the fields, then
+    stops. Until that endpoint exists, call or email.
+  </p>
+</aside>
+<form id="quote-form" class="form" action="/contact/#quote-form" method="post" novalidate>
+  <div>
+    <label for="name">Name</label>
+    <input id="name" name="name" type="text" autocomplete="name" required />
+  </div>
+  <div>
+    <label for="phone">Phone</label>
+    <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required />
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" autocomplete="email" required />
+  </div>
+  <div>
+    <label for="service">Service</label>
+    <select id="service" name="service" required>
+      <option value="">Choose a service</option>
+      {services.map((service) => <option value={service}>{service}</option>)}
+    </select>
+  </div>
+  <div>
+    <label for="message">Message</label>
+    <textarea id="message" name="message" required minlength="10" maxlength="2000"></textarea>
+  </div>
+  <button class="btn btn-primary" type="submit">Request a quote</button>
+  <p id="form-errors" class="field-error" role="alert" hidden></p>
+</form>
+<div id="form-result" class="note" role="status" hidden>
+  <p>
+    <strong>Nothing was sent.</strong>
+    This preview form has no endpoint yet. Call
+    <a href={`tel:${site.phoneTel}`}>{site.phoneDisplay}</a>
+    or email
+    <a href={`mailto:${site.email}`}>{site.email}</a>.
+  </p>
+</div>
+
+<script>
+  const form = document.querySelector("#quote-form");
+  const errors = document.querySelector("#form-errors");
+  const result = document.querySelector("#form-result");
+  if (form instanceof HTMLFormElement && errors instanceof HTMLElement && result instanceof HTMLElement) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      errors.hidden = true;
+      result.hidden = true;
+      const data = new FormData(form);
+      const name = String(data.get("name") ?? "").trim();
+      const phone = String(data.get("phone") ?? "").replace(/\D/g, "");
+      const email = String(data.get("email") ?? "").trim();
+      const service = String(data.get("service") ?? "").trim();
+      const message = String(data.get("message") ?? "").trim();
+      const problems: string[] = [];
+      if (!name) problems.push("Add your name.");
+      if (phone.length < 10) problems.push("Add a phone number with area code.");
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) problems.push("Add a valid email.");
+      if (!service) problems.push("Choose a service.");
+      if (message.length < 10) problems.push("Add a short message (at least 10 characters).");
+      if (problems.length) {
+        errors.hidden = false;
+        errors.textContent = problems.join(" ");
+        return;
+      }
+      result.hidden = false;
+      form.reset();
+    });
+  }
+</script>

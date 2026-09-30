@@ -1,0 +1,47 @@
+---
+import Photo from "./Photo.astro";
+import { nav, site } from "../data/site";
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <Photo group="brand" id="logo" alt="Coulehan Plumbing logo" sizes="96px" />
+      <p>
+        <strong>{site.brand}</strong><br />
+        {site.slogan}
+      </p>
+      <p class="fine">
+        {site.addressLine}. Owner-operated.<br />
+        {site.owner}<br />
+        {site.ownerTitle}
+      </p>
+    </div>
+    <div>
+      <h2>Pages</h2>
+      <ul>
+        {nav.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h2>Contact</h2>
+      <ul>
+        <li><a href={`tel:${site.phoneTel}`}>{site.phoneDisplay}</a></li>
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li><a href={site.facebook}>Facebook</a></li>
+        <li><a href={site.google}>Google Business</a></li>
+      </ul>
+      <p class="fine">{site.hours}</p>
+    </div>
+  </div>
+  <div class="container">
+    <p class="fine copyright">© {new Date().getFullYear()} {site.name}</p>
+  </div>
+</footer>
+
+<div class="callbar">
+  <a class="btn btn-light" href={`tel:${site.phoneTel}`}>Call</a>
+  <a class="btn btn-line" href="/contact/">Request a quote</a>
+</div>

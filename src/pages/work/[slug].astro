@@ -1,0 +1,199 @@
+---
+import Base from "../../layouts/Base.astro";
+import Photo from "../../components/Photo.astro";
+import Drop from "../../components/Drop.astro";
+import { categoryLabel, formatDate, jobs, type Job } from "../../data/jobs";
+import manifest from "../../data/manifest.json";
+
+export function getStaticPaths() {
+  return jobs.map((job) => ({
+    params: { slug: job.slug },
+    props: { job },
+  }));
+}
+
+interface Props {
+  job: Job;
+}
+
+const { job } = Astro.props;
+const index = jobs.findIndex((item) => item.slug === job.slug);
+const newer = index > 0 ? jobs[index - 1] : undefined;
+const older = index < jobs.length - 1 ? jobs[index + 1] : undefined;
+const cats = job.categories.filter((slug) => slug !== "video");
+
+type Variant = { w: number; h: number };
+const media = manifest as Record<string, Record<string, { variants: Variant[] }>>;
+
+const slides = job.photos.map((photo) => {
+  const variants = [...(media[job.slug]?.[photo.id]?.variants ?? [])].sort((a, b) => a.w - b.w);
+  const largest = variants[variants.length - 1];
+  return {
+    alt: photo.alt,
+    avif: largest ? `/media/jobs/${job.slug}/${photo.id}-${largest.w}.avif` : "",
+    webp: largest ? `/media/jobs/${job.slug}/${photo.id}-${largest.w}.webp` : "",
+    jpg: largest ? `/media/jobs/${job.slug}/${photo.id}-${largest.w}.jpg` : "",
+  };
+});
+---
+
+<Base title={job.title} description={`${job.title}. ${job.excerpt}`}>
+  <article class="page-hero">
+    <div class="container prose">
+      <p class="eyebrow"><Drop size={16} /> Examples of My Work</p>
+      <p class="meta">
+        <a href="/work/">All work</a>
+        · <time datetime={job.date}>{formatDate(job.date)}</time>
+        {cats.length > 0 && ` · ${cats.map(categoryLabel).join(" · ")}`}
+      </p>
+      <h1>{job.title}</h1>
+      {job.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      {
+        job.notes.map((note) => (
+          <aside class={note.startsWith("TODO") ? "todo" : "note"}>
+            <p>{note}</p>
+          </aside>
+        ))
+      }
+      <p>
+        <a href={job.facebookUrl} rel="noopener noreferrer">Original Facebook post</a>
+      </p>
+
+      {
+        job.videoOnly && (
+          <div class="video-panel">
+            <Drop size={42} />
+            <h2>Watch this one on Facebook</h2>
+            <p>
+              The post is a video. It is not hosted on this site. Open it on
+              Jerry’s page.
+            </p>
+            <p>
+              <a class="btn btn-light" href={job.facebookUrl} rel="noopener noreferrer">
+                Open the video
+              </a>
+            </p>
+          </div>
+        )
+      }
+
+      {
+        job.photos.length > 0 && (
+          <ul class="gallery">
+            {job.photos.map((photo, photoIndex) => (
+              <li>
+                <button
+                  class="shot"
+                  type="button"
+                  data-index={photoIndex}
+                  aria-label={`Open photo ${photoIndex + 1} of ${job.photos.length}`}
+                >
+                  <Photo
+                    group={`jobs/${job.slug}`}
+                    id={photo.id}
+                    alt={photo.alt}
+                    sizes="(min-width: 1100px) 30vw, (min-width: 720px) 45vw, 100vw"
+                  />
+                </button>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+
+      <nav class="pager" aria-label="More jobs">
+        {newer ? <a href={`/work/${newer.slug}/`}>Newer: {newer.title}</a> : <span></span>}
+        {older ? <a href={`/work/${older.slug}/`}>Older: {older.title}</a> : <span></span>}
+      </nav>
+    </div>
+  </article>
+
+  {
+    job.photos.length > 0 && (
+      <dialog id="lightbox" aria-label="Job photos">
+        <div class="lb-bar">
+          <p id="lb-count"></p>
+          <button id="lb-close" type="button">Close</button>
+        </div>
+        <figure>
+          <picture>
+            <source id="lb-avif" type="image/avif" />
+            <source id="lb-webp" type="image/webp" />
+            <img id="lb-img" alt="" />
+          </picture>
+          <figcaption id="lb-cap"></figcaption>
+        </figure>
+        <div class="lb-controls">
+          <button id="lb-prev" type="button">Previous</button>
+          <button id="lb-next" type="button">Next</button>
+        </div>
+      </dialog>
+    )
+  }
+</Base>
+
+<script define:vars={{ slides }}>
+  const shots = document.querySelectorAll(".shot");
+  const dialog = document.querySelector("#lightbox");
+  if (!(dialog instanceof HTMLDialogElement) || shots.length === 0) {
+    /* no gallery */
+  } else {
+    const img = dialog.querySelector("#lb-img");
+    const cap = dialog.querySelector("#lb-cap");
+    const count = dialog.querySelector("#lb-count");
+    const avif = dialog.querySelector("#lb-avif");
+    const webp = dialog.querySelector("#lb-webp");
+    let index = 0;
+    let lastTrigger = null;
+
+    const show = (next) => {
+      index = (next + slides.length) % slides.length;
+      const slide = slides[index];
+      if (avif instanceof HTMLSourceElement) avif.srcset = slide.avif;
+      if (webp instanceof HTMLSourceElement) webp.srcset = slide.webp;
+      if (img instanceof HTMLImageElement) {
+        img.src = slide.jpg;
+        img.alt = slide.alt;
+      }
+      if (cap) cap.textContent = slide.alt;
+      if (count) count.textContent = `${index + 1} of ${slides.length}`;
+    };
+
+    const open = (start, trigger) => {
+      lastTrigger = trigger;
+      show(start);
+      dialog.showModal();
+    };
+
+    shots.forEach((shot) => {
+      shot.addEventListener("click", () => {
+        const start = Number(shot.getAttribute("data-index") || "0");
+        open(start, shot);
+      });
+    });
+
+    dialog.querySelector("#lb-close")?.addEventListener("click", () => dialog.close());
+    dialog.querySelector("#lb-prev")?.addEventListener("click", () => show(index - 1));
+    dialog.querySelector("#lb-next")?.addEventListener("click", () => show(index + 1));
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener("close", () => {
+      if (lastTrigger instanceof HTMLElement) lastTrigger.focus();
+    });
+    dialog.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") show(index + 1);
+      if (event.key === "ArrowLeft") show(index - 1);
+    });
+
+    let touchX = 0;
+    dialog.addEventListener("touchstart", (event) => {
+      touchX = event.changedTouches[0]?.clientX ?? 0;
+    }, { passive: true });
+    dialog.addEventListener("touchend", (event) => {
+      const end = event.changedTouches[0]?.clientX ?? touchX;
+      const delta = end - touchX;
+      if (Math.abs(delta) > 40) show(delta < 0 ? index + 1 : index - 1);
+    }, { passive: true });
+  }
+</script>

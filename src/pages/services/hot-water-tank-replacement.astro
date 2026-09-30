@@ -1,0 +1,46 @@
+---
+import ServiceDetail from "../../components/ServiceDetail.astro";
+import { jobBySlug } from "../../data/jobs";
+
+const jobs = ["rinnai-combi-unit", "navien-combo-unit"].map((slug) => jobBySlug(slug)!);
+---
+
+<ServiceDetail
+  title="Hot Water Tank Replacement"
+  description="Hot water tank and tankless water heater installation and repair from Coulehan Plumbing LLC in Pittsburgh, PA 15226. Call (412) 513-9335."
+  intro="Tank and tankless water heater installation and repair for homes and businesses in Pittsburgh."
+  signs={[
+    "No hot water, or water that will not get hot enough",
+    "A tank that is leaking",
+    "Rusty or discolored hot water",
+    "Rumbling or popping from a tank",
+    "A unit that shuts off or will not stay on",
+  ]}
+  involves={[
+    "Look at the tank or tankless unit you have, and at the water connections around it",
+    "Repair the unit when that is the right fix",
+    "Replace it with a tank or a tankless water heater when it needs to come out",
+    "Connect the new unit to the water lines and check the work for leaks",
+  ]}
+  faqs={[
+    {
+      question: "Do you install both tank and tankless water heaters?",
+      answer:
+        "Yes. This page covers tank water heaters and tankless water heaters, including installation and repair.",
+    },
+    {
+      question: "Do you only replace water heaters, or do you repair them too?",
+      answer:
+        "Both. The visit starts with the unit that is there. Replacement is not the only option.",
+    },
+    {
+      question: "Can you look at a water heater that is leaking?",
+      answer: "Yes. Call and describe what you are seeing.",
+    },
+    {
+      question: "Do you work on houses and businesses?",
+      answer: "Yes. Residential and commercial calls.",
+    },
+  ]}
+  jobs={jobs}
+/>

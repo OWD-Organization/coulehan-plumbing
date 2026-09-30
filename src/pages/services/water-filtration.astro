@@ -1,0 +1,44 @@
+---
+import ServiceDetail from "../../components/ServiceDetail.astro";
+import { jobBySlug } from "../../data/jobs";
+
+const jobs = ["spring-well-filtration"].map((slug) => jobBySlug(slug)!);
+---
+
+<ServiceDetail
+  title="Water Filtration"
+  description="Water filtration systems and water softener installation from Coulehan Plumbing LLC in Pittsburgh, PA 15226. Call (412) 513-9335."
+  intro="Filtration systems and water softener installation for homes and businesses in Pittsburgh."
+  signs={[
+    "Sediment or staining from the water",
+    "A taste or odor you want filtered",
+    "Scale on fixtures when you are asking about a softener",
+  ]}
+  involves={[
+    "Look at the plumbing where a filter or a softener would connect",
+    "Install a filtration system or a water softener",
+    "Connect it to the water lines so it can be isolated from the rest of the house",
+  ]}
+  faqs={[
+    {
+      question: "Do you install water filtration and water softeners?",
+      answer: "Yes. Both are part of this work.",
+    },
+    {
+      question: "Is a softener the same thing as a filter?",
+      answer:
+        "No. A filter and a softener do different jobs. Call and describe what you want treated.",
+    },
+    {
+      question: "Do you install systems on well water?",
+      answer:
+        "Jerry has installed a spring well filtration system with UV. Call and describe the water you have.",
+    },
+    {
+      question: "Can the system be shut off from the rest of the house?",
+      answer:
+        "The install connects the system so it can be isolated. Ask how that will be piped on your job.",
+    },
+  ]}
+  jobs={jobs}
+/>

@@ -1,0 +1,155 @@
+---
+import Photo from "./Photo.astro";
+import { moreServices, nav, servicePages, site } from "../data/site";
+
+const path = Astro.url.pathname;
+
+function current(href: string) {
+  if (href === "/") return path === "/" ? "page" : undefined;
+  return path.startsWith(href) ? "page" : undefined;
+}
+---
+
+<header class="site-header">
+  <p class="hours-bar">{site.hours}</p>
+  <div class="container bar">
+    <a class="brand" href="/">
+      <Photo
+        group="brand"
+        id="mark"
+        alt=""
+        sizes="52px"
+        loading="eager"
+        fetchpriority="low"
+      />
+      <span class="brand-name">
+        <span>Coulehan</span>
+        <span>Plumbing</span>
+      </span>
+    </a>
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+    >
+      Menu
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Primary">
+      {
+        nav.map((item) =>
+          item.href === "/services/" ? (
+            <div class="nav-drop">
+              <a class="nav-services-link" href={item.href} aria-current={current(item.href)}>
+                {item.label}
+              </a>
+              <button
+                class="sub-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="services-menu"
+              >
+                <span class="sub-toggle-label">Services</span>
+                <span class="sub-toggle-hint">Show services</span>
+                <svg class="chevron" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
+                  <path fill="currentColor" d="M5.2 7.5 10 12.3l4.8-4.8 1.2 1.2L10 14.7 4 8.7z" />
+                </svg>
+              </button>
+              <div id="services-menu" class="submenu">
+                <a class="submenu-all" href="/services/" aria-current={path === "/services/" ? "page" : undefined}>
+                  All services
+                </a>
+                <div class="submenu-col" role="group" aria-labelledby="service-pages-label">
+                  <p class="submenu-label" id="service-pages-label">Service pages</p>
+                  {servicePages.map((page) => (
+                    <a href={page.href} aria-current={current(page.href)}>
+                      {page.label}
+                    </a>
+                  ))}
+                </div>
+                <div class="submenu-col" role="group" aria-labelledby="more-services-label">
+                  <p class="submenu-label" id="more-services-label">More services</p>
+                  {moreServices.map((page) => (
+                    <a href={page.href}>{page.label}</a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <a href={item.href} aria-current={current(item.href)}>
+              {item.label}
+            </a>
+          ),
+        )
+      }
+      <a class="nav-phone" href={`tel:${site.phoneTel}`}>
+        Call {site.phoneDisplay}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector(".site-header");
+  const toggle = document.querySelector(".nav-toggle");
+  const navEl = document.querySelector("#site-nav");
+  const drop = document.querySelector(".nav-drop");
+  const subToggle = document.querySelector(".sub-toggle");
+  const desktop = window.matchMedia("(min-width: 1100px)");
+
+  function setServicesOpen(open: boolean) {
+    if (!(subToggle instanceof HTMLButtonElement) || !(drop instanceof HTMLElement)) return;
+    subToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    drop.classList.toggle("is-open", open);
+  }
+
+  if (header && toggle && navEl) {
+    const close = () => {
+      header.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.textContent = "Menu";
+      setServicesOpen(false);
+    };
+    toggle.addEventListener("click", () => {
+      const open = header.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.textContent = open ? "Close" : "Menu";
+      if (!open) setServicesOpen(false);
+    });
+    navEl.addEventListener("click", (event) => {
+      const target = event.target;
+      if (target instanceof HTMLElement && target.closest("a")) close();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      const servicesFocused = drop instanceof HTMLElement && drop.contains(document.activeElement);
+      close();
+      if (servicesFocused && subToggle instanceof HTMLButtonElement) subToggle.focus();
+    });
+  }
+
+  if (drop instanceof HTMLElement && subToggle instanceof HTMLButtonElement) {
+    subToggle.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const open = subToggle.getAttribute("aria-expanded") === "true";
+      setServicesOpen(!open);
+    });
+    drop.addEventListener("mouseenter", () => {
+      if (desktop.matches) setServicesOpen(true);
+    });
+    drop.addEventListener("mouseleave", () => {
+      if (!desktop.matches) return;
+      if (drop.contains(document.activeElement)) return;
+      setServicesOpen(false);
+    });
+    drop.addEventListener("focusin", () => {
+      if (desktop.matches) setServicesOpen(true);
+    });
+    drop.addEventListener("focusout", (event) => {
+      if (!desktop.matches) return;
+      const next = event.relatedTarget;
+      if (next instanceof Node && drop.contains(next)) return;
+      setServicesOpen(false);
+    });
+  }
+</script>

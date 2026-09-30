@@ -1,0 +1,85 @@
+---
+import Base from "../layouts/Base.astro";
+import Photo from "../components/Photo.astro";
+import Drop from "../components/Drop.astro";
+import CtaBand from "../components/CtaBand.astro";
+import Reviews from "../components/Reviews.astro";
+import { site } from "../data/site";
+---
+
+<Base
+  title="About"
+  description="Coulehan Plumbing LLC is an owner-operated plumbing company in Pittsburgh, PA. Jerry Coulehan is a Master Plumber. BBB accredited and a Google Verified Business."
+>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow"><Drop size={16} /> About</p>
+      <h1>{site.owner}</h1>
+      <p class="master-line">{site.ownerTitle}</p>
+      <p class="lede">
+        Coulehan Plumbing LLC is an owner-operated plumbing company in
+        Pittsburgh, PA 15226. Serving Pittsburgh since {site.foundingYear}.
+        {site.hours}.
+      </p>
+    </div>
+  </header>
+
+  <section class="section" style="padding-top: 1rem">
+    <div class="container split about-split">
+      <div class="prose">
+        <h2>What checks out</h2>
+        <div class="trust-grid" style="grid-template-columns: 1fr">
+          <article class="trust-card">
+            <h3>BBB Accredited, A+ Rated</h3>
+            <p>Accredited since 7/9/2025.</p>
+            <p><a href={site.bbb} target="_blank" rel="noopener">BBB profile</a></p>
+          </article>
+          <article class="trust-card">
+            <h3>5.0 stars, {site.reviewCount} Google reviews</h3>
+            <p>The reviews on this page are quoted word for word.</p>
+            <p>
+              <a href={site.googleReviews} target="_blank" rel="noopener">Read all our Google reviews</a>
+            </p>
+          </article>
+          <article class="trust-card">
+            <h3>100% recommend</h3>
+            <p>Facebook shows 100% recommend, from 80 reviews.</p>
+            <p><a href={site.facebook}>Facebook page</a></p>
+          </article>
+        </div>
+      </div>
+      <div class="about-aside">
+        <figure class="feature-photo about-skyline">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="/media/brand/truck-skyline-900.webp 900w, /media/brand/truck-skyline-1536.webp 1536w"
+              sizes="(min-width: 720px) 42vw, 100vw"
+            />
+            <img
+              src="/media/brand/truck-skyline-1536.jpg"
+              srcset="/media/brand/truck-skyline-900.jpg 900w, /media/brand/truck-skyline-1536.jpg 1536w"
+              sizes="(min-width: 720px) 42vw, 100vw"
+              width="1536"
+              height="2048"
+              alt="Coulehan Plumbing service truck parked at an overlook, with the Pittsburgh skyline behind it."
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+          <figcaption>The service truck above Pittsburgh.</figcaption>
+        </figure>
+        <Photo
+          class="about-logo"
+          group="brand"
+          id="logo"
+          alt="Coulehan Plumbing logo: a blue water drop over crossed pipes, with the company name."
+          sizes="280px"
+        />
+      </div>
+    </div>
+
+  </section>
+  <Reviews />
+  <CtaBand />
+</Base>

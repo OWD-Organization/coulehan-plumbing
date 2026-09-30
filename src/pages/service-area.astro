@@ -1,0 +1,85 @@
+---
+import Base from "../layouts/Base.astro";
+import Drop from "../components/Drop.astro";
+import CtaBand from "../components/CtaBand.astro";
+
+const draftTowns = [
+  "Brookline",
+  "Beechview",
+  "Banksville",
+  "Carrick",
+  "Overbrook",
+  "Baldwin",
+  "Brentwood",
+  "Whitehall",
+  "Dormont",
+  "Mt. Lebanon",
+  "Castle Shannon",
+  "Bethel Park",
+];
+---
+
+<Base
+  title="Service Area"
+  description="Coulehan Plumbing LLC is based in Pittsburgh, PA 15226 (Brookline) and works around the South Hills. Neighborhoods are still being confirmed with the owner."
+>
+  <header class="page-hero">
+    <div class="container">
+      <p class="eyebrow"><Drop size={16} /> Service area</p>
+      <h1>A Pittsburgh plumber, based in 15226.</h1>
+      <p class="lede">
+        Coulehan Plumbing LLC is in Pittsburgh, Pennsylvania 15226. That ZIP is
+        Brookline, on the south side of the city. The work described on the
+        current site is local: residential and commercial plumbing. Serving
+        Pittsburgh since 2014.
+      </p>
+    </div>
+  </header>
+
+  <section class="section" style="padding-top: 1rem">
+    <div class="container split">
+      <div class="prose">
+        <h2>South Hills, around Brookline</h2>
+        <p>
+          15226 sits in the South Hills, among the neighborhoods south of the
+          rivers. That is the honest center of the map until Jerry names the
+          towns he wants on the site. Nothing below is a promise that every
+          one of those places is in the service area.
+        </p>
+        <p>
+          One Facebook post is outside that circle. Jerry wrote that he helped
+          the West View / Ross Township community install three new toilets at
+          a baseball field. The sign in those photos reads Scharmyn Field. That
+          is a job he described. It is not, by itself, a North Hills service
+          area.
+        </p>
+        <p><a href="/work/scharmyn-park-toilets/">See the field restroom job</a></p>
+        <aside class="todo">
+          <p>
+            <strong>TODO: confirm this list with Jerry.</strong>
+            Draft only. These are neighborhoods and towns around Brookline and
+            the South Hills. Do not publish them as a service area until he
+            checks the names, adds any he wants, and crosses off the ones he
+            does not cover.
+          </p>
+        </aside>
+        <ul class="area-list">
+          {draftTowns.map((town) => <li>{town} <span class="fine">· draft</span></li>)}
+        </ul>
+      </div>
+      <div>
+        <iframe
+          class="map-frame"
+          title="Map of the Pittsburgh 15226 area, including Brookline"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-80.08%2C40.36%2C-79.96%2C40.43&amp;layer=mapnik"
+          loading="lazy"
+        ></iframe>
+        <p class="fine">
+          Map of the Pittsburgh, PA 15226 area.
+          <a href="https://www.openstreetmap.org/#map=13/40.394/-80.020">Open the map</a>
+        </p>
+      </div>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
