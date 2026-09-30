@@ -255,10 +255,8 @@ p {
   display: none;
 }
 
-.header-tools .nav-cta,
 .mobile-menu-head,
-.mobile-call,
-.mobile-quote {
+.mobile-call {
   display: none;
 }
 
@@ -339,7 +337,6 @@ p {
 
 .nav-link,
 .site-nav > .mobile-call,
-.site-nav > .mobile-quote,
 .sub-toggle {
   font-family: var(--font-heading);
   font-weight: 500;
@@ -354,7 +351,6 @@ p {
 
 .nav-link:hover,
 .site-nav > .mobile-call:hover,
-.site-nav > .mobile-quote:hover,
 .sub-toggle:hover {
   color: var(--drop);
 }
@@ -443,21 +439,12 @@ p {
   color: var(--drop);
 }
 
-.mobile-call,
-.mobile-quote {
-  display: inline-flex;
-}
-
 .mobile-call {
+  display: inline-flex;
   margin-top: 0.75rem;
   color: var(--drop);
   font-weight: 700;
   font-size: 1.2rem;
-}
-
-.mobile-quote {
-  margin-top: 0.75rem;
-  justify-content: center;
 }
 
 .btn,
@@ -1411,33 +1398,37 @@ dialog#lightbox::backdrop {
   }
 }
 
-@media (min-width: 1180px) {
-  .brand img {
-    height: 76px;
+@media (min-width: 1024px) {
+  .site-header .bar {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 1.25rem;
+  }
+
+  .site-header .brand {
+    margin-right: 0;
   }
 
   .nav-toggle,
   .nav-scrim,
   .mobile-menu-head,
-  .site-nav > .mobile-call,
-  .site-nav > .mobile-quote {
+  .site-nav > .mobile-call {
     display: none;
   }
 
-  .header-tools .nav-cta {
-    display: inline-flex;
-  }
-
-  .nav-phone {
-    width: 48px;
-    justify-content: center;
+  .header-tools {
+    flex-shrink: 0;
   }
 
   .site-nav {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
-    margin-left: auto;
+    justify-content: center;
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
+    gap: 1.125rem;
+    margin-left: 0;
+    min-width: 0;
   }
 
   .nav-link {
@@ -1524,6 +1515,18 @@ dialog#lightbox::backdrop {
     background: rgba(255, 255, 255, 0.08);
     color: var(--drop);
   }
+}
+
+@media (min-width: 1200px) {
+  .site-nav {
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1180px) {
+  .brand img {
+    height: 76px;
+  }
 
   .callbar {
     display: none;
@@ -1540,6 +1543,10 @@ dialog#lightbox::backdrop {
 }
 
 @media (min-width: 1440px) {
+  .site-nav {
+    gap: 2.25rem;
+  }
+
   .nav-phone {
     width: auto;
     gap: 0.75rem;
