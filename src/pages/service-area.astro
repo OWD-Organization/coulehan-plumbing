@@ -53,11 +53,10 @@ import { serviceAreaPolygon } from "../data/service-area";
       scrollWheelZoom: false,
       attributionControl: true,
     });
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: "abcd",
-      maxZoom: 18,
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+      maxZoom: 19,
     }).addTo(map);
 
     const maskOuter: [number, number][] = [
@@ -69,7 +68,7 @@ import { serviceAreaPolygon } from "../data/service-area";
     L.polygon([maskOuter, area], {
       stroke: false,
       fillColor: "#182033",
-      fillOpacity: 0.55,
+      fillOpacity: 0.34,
       interactive: false,
     }).addTo(map);
 
@@ -78,7 +77,7 @@ import { serviceAreaPolygon } from "../data/service-area";
       weight: 4,
       opacity: 1,
       fillColor: "#4199E1",
-      fillOpacity: 0.34,
+      fillOpacity: 0.22,
     }).addTo(map);
 
     const fit = () => {

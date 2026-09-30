@@ -1145,12 +1145,17 @@ textarea {
 
 .service-map {
   width: 100%;
+  max-width: none;
   height: 420px;
   margin-top: 1.5rem;
   border-radius: var(--radius-xl);
   overflow: hidden;
   background: #e4e7eb;
   box-shadow: var(--shadow-md);
+}
+
+.service-map .leaflet-tile-pane {
+  filter: grayscale(0.72) saturate(0.28) contrast(1.08);
 }
 
 .map-caption {
@@ -1357,8 +1362,8 @@ dialog#lightbox::backdrop {
 
 @media (min-width: 720px) {
   .service-map {
-    height: 680px;
-    max-width: 920px;
+    height: 720px;
+    max-width: none;
   }
 
   .area-list {
