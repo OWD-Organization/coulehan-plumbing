@@ -359,7 +359,7 @@ p {
   position: relative;
 }
 
-.nav-services-link {
+.nav-drop > .nav-link {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -1498,7 +1498,7 @@ dialog#lightbox::backdrop {
     gap: 0.2rem;
   }
 
-  .nav-services-link {
+  .nav-drop > .nav-link {
     position: static;
     width: auto;
     height: auto;
@@ -1578,6 +1578,20 @@ dialog#lightbox::backdrop {
   .submenu a:hover {
     background: rgba(255, 255, 255, 0.08);
     color: var(--drop);
+  }
+
+  .nav-drop-area.is-open > .submenu {
+    width: max-content;
+    max-width: calc(100vw - 2rem);
+    grid-template-columns: max-content max-content;
+  }
+
+  .submenu-towns {
+    display: contents;
+  }
+
+  .submenu-towns a {
+    white-space: nowrap;
   }
 }
 

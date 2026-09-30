@@ -1,6 +1,6 @@
 ---
 import Photo from "./Photo.astro";
-import { moreServices, nav, servicePages, site } from "../data/site";
+import { moreServices, nav, servicePages, site, towns } from "../data/site";
 
 const path = Astro.url.pathname;
 
@@ -36,7 +36,7 @@ function current(href: string) {
         nav.map((item) =>
           item.href === "/services/" ? (
             <div class="nav-drop">
-              <a class="nav-link nav-services-link" href={item.href} aria-current={current(item.href)}>
+              <a class="nav-link" href={item.href} aria-current={current(item.href)}>
                 {item.label}
               </a>
               <button
@@ -67,6 +67,36 @@ function current(href: string) {
                   <p class="submenu-label" id="more-services-label">Other Services</p>
                   {moreServices.map((page) => (
                     <a href={page.href}>{page.label}</a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : item.href === "/service-area/" ? (
+            <div class="nav-drop nav-drop-area">
+              <a class="nav-link" href={item.href} aria-current={current(item.href)}>
+                {item.label}
+              </a>
+              <button
+                class="sub-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="service-area-menu"
+              >
+                <span class="sub-toggle-label">Service Area</span>
+                <span class="sub-toggle-hint">Show service areas</span>
+                <svg class="chevron" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
+                  <path fill="currentColor" d="M5.2 7.5 10 12.3l4.8-4.8 1.2 1.2L10 14.7 4 8.7z" />
+                </svg>
+              </button>
+              <div id="service-area-menu" class="submenu">
+                <a class="submenu-all" href="/service-area/" aria-current={path === "/service-area/" ? "page" : undefined}>
+                  All service areas
+                </a>
+                <div class="submenu-towns">
+                  {towns.map((town) => (
+                    <a href={`/service-area/${town.slug}/`} aria-current={current(`/service-area/${town.slug}/`)}>
+                      {town.name}
+                    </a>
                   ))}
                 </div>
               </div>
@@ -108,16 +138,22 @@ function current(href: string) {
   const header = document.querySelector(".site-header");
   const toggle = document.querySelector(".nav-toggle");
   const navEl = document.querySelector("#site-nav");
-  const drop = document.querySelector(".nav-drop");
-  const subToggle = document.querySelector(".sub-toggle");
+  const drops = [...document.querySelectorAll(".nav-drop")];
   const scrim = document.querySelector(".nav-scrim");
   const menuClose = document.querySelector(".menu-close");
-  const desktop = window.matchMedia("(min-width: 1180px)");
+  const desktop = window.matchMedia("(min-width: 1024px)");
 
-  function setServicesOpen(open: boolean) {
-    if (!(subToggle instanceof HTMLButtonElement) || !(drop instanceof HTMLElement)) return;
-    subToggle.setAttribute("aria-expanded", open ? "true" : "false");
+  function setDropOpen(drop: Element, open: boolean) {
+    const button = drop.querySelector(".sub-toggle");
+    if (!(button instanceof HTMLButtonElement)) return;
+    button.setAttribute("aria-expanded", open ? "true" : "false");
     drop.classList.toggle("is-open", open);
+  }
+
+  function closeDrops(except?: Element) {
+    for (const drop of drops) {
+      if (drop !== except) setDropOpen(drop, false);
+    }
   }
 
   if (header && toggle && navEl) {
@@ -125,7 +161,7 @@ function current(href: string) {
       header.classList.remove("is-open");
       toggle.setAttribute("aria-expanded", "false");
       document.body.classList.remove("nav-open");
-      setServicesOpen(false);
+      closeDrops();
     };
     const openMenu = () => {
       header.classList.add("is-open");
@@ -144,35 +180,43 @@ function current(href: string) {
     });
     document.addEventListener("keydown", (event) => {
       if (event.key !== "Escape") return;
-      const servicesFocused = drop instanceof HTMLElement && drop.contains(document.activeElement);
+      const focusedDrop = drops.find((drop) => drop.contains(document.activeElement));
+      const focusedToggle = focusedDrop?.querySelector(".sub-toggle");
       close();
-      if (servicesFocused && subToggle instanceof HTMLButtonElement) subToggle.focus();
+      if (focusedToggle instanceof HTMLButtonElement) focusedToggle.focus();
       else if (toggle instanceof HTMLButtonElement) toggle.focus();
     });
   }
 
-  if (drop instanceof HTMLElement && subToggle instanceof HTMLButtonElement) {
+  for (const drop of drops) {
+    const subToggle = drop.querySelector(".sub-toggle");
+    if (!(subToggle instanceof HTMLButtonElement)) continue;
     subToggle.addEventListener("click", (event) => {
       event.stopPropagation();
       const open = subToggle.getAttribute("aria-expanded") === "true";
-      setServicesOpen(!open);
+      if (!open) closeDrops(drop);
+      setDropOpen(drop, !open);
     });
     drop.addEventListener("mouseenter", () => {
-      if (desktop.matches) setServicesOpen(true);
+      if (!desktop.matches) return;
+      closeDrops(drop);
+      setDropOpen(drop, true);
     });
     drop.addEventListener("mouseleave", () => {
       if (!desktop.matches) return;
       if (drop.contains(document.activeElement)) return;
-      setServicesOpen(false);
+      setDropOpen(drop, false);
     });
     drop.addEventListener("focusin", () => {
-      if (desktop.matches) setServicesOpen(true);
+      if (!desktop.matches) return;
+      closeDrops(drop);
+      setDropOpen(drop, true);
     });
     drop.addEventListener("focusout", (event) => {
       if (!desktop.matches) return;
       const next = event.relatedTarget;
       if (next instanceof Node && drop.contains(next)) return;
-      setServicesOpen(false);
+      setDropOpen(drop, false);
     });
   }
 </script>
