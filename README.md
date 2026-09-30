@@ -2,7 +2,7 @@
 
 Preview marketing site for Coulehan Plumbing LLC, an owner-operated plumbing company in Pittsburgh, PA 15226. Built for review by Orion Ra at OUTWORK'em DIGITAL.
 
-This build is **not for indexing**. Every page sends `noindex, nofollow`, `public/robots.txt` disallows `/`, and `vercel.json` sets `X-Robots-Tag: noindex, nofollow`. There is no sitemap.
+This build is **not for indexing** until launch. Previews send `noindex, nofollow`, `robots.txt` is `Disallow: /`, and `vercel.json` sets `X-Robots-Tag: noindex, nofollow` only on `*.vercel.app` hosts. Set `SITE_INDEXABLE=true` in Vercel Production at launch to allow indexing and publish `Allow: /` plus the sitemap. Do not set that variable on preview deployments.
 
 ## Run locally
 
@@ -16,10 +16,12 @@ The dev server is http://127.0.0.1:3847
 ```bash
 npm run build
 npm run preview
-npm run check:seo
+npm run seo:strict
 ```
 
-Deploy the static `dist/` folder on Vercel. `vercel.json` is already in the repo. No environment variables are required.
+`npm run build` builds the site and runs the SEO gate in preview mode. Critical issues are printed and do not fail that command. `npm run seo:strict` fails on critical issues even when `SITE_INDEXABLE` is unset. The gate report is written to `.owd/`, not `dist/`.
+
+Deploy the static `dist/` folder on Vercel. `vercel.json` is already in the repo. The only launch variable is `SITE_INDEXABLE=true`, and only on the Production environment.
 
 ## Photos
 
@@ -76,4 +78,4 @@ Confirm these before the site is indexed or treated as live.
 - It does not send quote requests.
 - It does not embed Facebook video. Video-only posts link out.
 - It does not publish a street address or a license number. Hours are open 24 hours, 7 days a week. The founding year on the site is 2014.
-- It does not include a sitemap, and it must stay `noindex` until the TODOs above are resolved and someone deliberately removes the robots rules.
+- It stays `noindex` until `SITE_INDEXABLE=true` is set for the production launch. The sitemap is generated, and preview hosts stay noindexed.

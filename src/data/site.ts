@@ -88,12 +88,6 @@ export function plumberJsonLd(origin: string) {
     })),
     openingHours: "Mo-Su 00:00-23:59",
     foundingDate: site.foundingYear,
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: site.ratingValue,
-      reviewCount: String(site.reviewCount),
-      bestRating: "5",
-    },
     employee: {
       "@type": "Person",
       name: site.owner,

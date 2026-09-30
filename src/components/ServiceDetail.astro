@@ -4,7 +4,7 @@ import Drop from "./Drop.astro";
 import QuoteForm from "./QuoteForm.astro";
 import RecentJobs from "./RecentJobs.astro";
 import type { Job } from "../data/jobs";
-import { site } from "../data/site";
+import { serviceTowns, site } from "../data/site";
 
 interface Faq {
   question: string;
@@ -22,9 +22,19 @@ interface Props {
 }
 
 const { title, description, intro, signs, involves, faqs, jobs } = Astro.props;
+const serviceLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: title,
+  serviceType: title,
+  description,
+  url: new URL(Astro.url.pathname, Astro.site ?? site.website).href,
+  provider: { "@id": "https://coulehanplumbing.com/#business" },
+  areaServed: serviceTowns.map((name) => ({ "@type": "City", name })),
+};
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} extraJsonLd={serviceLd}>
   <header class="page-hero">
     <div class="container">
       <p class="eyebrow"><Drop size={16} /> <a href="/services/">Services</a></p>

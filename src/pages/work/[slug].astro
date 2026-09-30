@@ -3,6 +3,7 @@ import Base from "../../layouts/Base.astro";
 import Photo from "../../components/Photo.astro";
 import Drop from "../../components/Drop.astro";
 import { categoryLabel, formatDate, jobs, type Job } from "../../data/jobs";
+import { fitMeta } from "../../data/meta";
 import manifest from "../../data/manifest.json";
 
 export function getStaticPaths() {
@@ -37,7 +38,17 @@ const slides = job.photos.map((photo) => {
 });
 ---
 
-<Base title={job.title} description={`${job.title}. ${job.excerpt}`}>
+<Base
+  title={job.title}
+  documentTitle={
+    job.slug === "basement-waterproofing"
+      ? "Basement waterproofing | Coulehan Plumbing"
+      : job.slug === "palette-nail-lash-bar"
+        ? "Palette Nail and Lash Bar | Coulehan Plumbing"
+        : undefined
+  }
+  description={fitMeta(`${job.title}. ${job.excerpt}`)}
+>
   <article class="page-hero">
     <div class="container prose">
       <p class="eyebrow"><Drop size={16} /> Examples of My Work</p>

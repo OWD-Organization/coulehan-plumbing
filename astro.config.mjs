@@ -1,4 +1,7 @@
+import sitemap from "@astrojs/sitemap";
 import { defineConfig } from "astro/config";
+
+const siteIndexable = process.env.SITE_INDEXABLE === "true";
 
 /** Send the preview noindex header from the dev and preview servers. */
 function noindexHeader() {
@@ -20,6 +23,11 @@ export default defineConfig({
   output: "static",
   compressHTML: true,
   trailingSlash: "always",
+  integrations: [
+    sitemap({
+      filter: (page) => !/\/404(?:\.html)?\/?$/.test(new URL(page).pathname),
+    }),
+  ],
   server: {
     port: 3847,
     host: true,
@@ -28,6 +36,9 @@ export default defineConfig({
     },
   },
   vite: {
+    define: {
+      __COULEHAN_SITE_INDEXABLE__: siteIndexable ? "true" : "false",
+    },
     plugins: [noindexHeader()],
   },
 });

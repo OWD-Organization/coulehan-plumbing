@@ -4,12 +4,13 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev --host 0.0.0.0 --port 3847",
-    "build": "astro build",
+    "build": "astro build && node scripts/seo-gate.mjs --host coulehanplumbing.com --phone +14125139335 --lang en --slash always --forbid-schema-key streetAddress --no-gtm",
     "preview": "astro preview --host 0.0.0.0 --port 3847",
     "optimize": "node scripts/optimize-images.mjs",
-    "check:seo": "node scripts/check-seo.mjs"
+    "seo:strict": "node scripts/seo-gate.mjs --host coulehanplumbing.com --phone +14125139335 --lang en --slash always --forbid-schema-key streetAddress --no-gtm --strict"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
     "@fontsource-variable/fraunces": "^5.2.9",
     "@fontsource-variable/outfit": "^5.2.8",
     "astro": "^5.14.1",

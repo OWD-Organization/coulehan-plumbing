@@ -26,7 +26,7 @@ export const towns: readonly Town[] = [
     whyLead: "A Brookline call is handled by the same owner-operated company.",
     callLine: "For a plumber in Brookline, call (412) 513-9335.",
     description:
-      "Plumber in Brookline, PA. Owner-operated Coulehan Plumbing, a Master Plumber serving Pittsburgh since 2014. Open 24/7. Call (412) 513-9335.",
+      "Plumber in Brookline, PA. Owner-operated Coulehan Plumbing, a Master Plumber serving Pittsburgh since 2014. Open 24/7. Call (412) 513-9335. BBB A+.",
     nearby: ["beechview", "overbrook", "dormont", "carrick"],
   },
   {
@@ -56,7 +56,7 @@ export const towns: readonly Town[] = [
     whyLead: "What you can count on for a Banksville call is listed here, and nothing beyond it.",
     callLine: "Call (412) 513-9335 for plumbing in Banksville.",
     description:
-      "Plumbing in Banksville, PA from Coulehan Plumbing. Owner-operated Master Plumber in the South Hills, open 24/7. Call (412) 513-9335.",
+      "Plumbing in Banksville, PA from Coulehan Plumbing. Owner-operated Master Plumber in the South Hills, open 24/7. Call (412) 513-9335. Since 2014.",
     nearby: ["beechview", "dormont", "mt-lebanon"],
   },
   {
@@ -71,7 +71,7 @@ export const towns: readonly Town[] = [
     whyLead: "Carrick customers get the owner-operated shop, not a different brand.",
     callLine: "To reach a plumber in Carrick, call (412) 513-9335.",
     description:
-      "Plumber in Carrick, PA. Coulehan Plumbing LLC is owner-operated, BBB A+ rated, and open 24/7. Call (412) 513-9335.",
+      "Plumber in Carrick, PA. Coulehan Plumbing LLC is owner-operated, BBB A+ rated, and open 24/7. Serving Pittsburgh since 2014. Call (412) 513-9335.",
     nearby: ["overbrook", "brookline", "baldwin", "brentwood"],
   },
   {
@@ -116,7 +116,7 @@ export const towns: readonly Town[] = [
     whyLead: "Here is the short version of who is doing the work in Brentwood.",
     callLine: "Call (412) 513-9335 for a plumber in Brentwood.",
     description:
-      "Plumber in Brentwood, PA. Owner-operated Coulehan Plumbing, BBB A+ and open 24/7. Serving Pittsburgh since 2014. Call (412) 513-9335.",
+      "Plumber in Brentwood, PA. Owner-operated Coulehan Plumbing, BBB A+ and open 24/7. Serving Pittsburgh since 2014. Master Plumber. Call (412) 513-9335.",
     nearby: ["whitehall", "baldwin", "carrick", "overbrook"],
   },
   {
@@ -131,7 +131,7 @@ export const towns: readonly Town[] = [
     whyLead: "Whitehall is covered by the same shop that serves the rest of this list.",
     callLine: "Call (412) 513-9335 and ask for plumbing in Whitehall.",
     description:
-      "Whitehall, PA plumber. Coulehan Plumbing LLC, a Master Plumber serving Pittsburgh since 2014. Open 24/7. Call (412) 513-9335.",
+      "Whitehall, PA plumber. Coulehan Plumbing LLC, a Master Plumber serving Pittsburgh since 2014. Open 24/7. BBB A+ rated. Call Jerry at (412) 513-9335.",
     nearby: ["brentwood", "baldwin", "castle-shannon", "bethel-park"],
   },
   {
@@ -146,7 +146,7 @@ export const towns: readonly Town[] = [
     whyLead: "Nothing about a Dormont visit changes who the company is.",
     callLine: "For a plumber in Dormont, call (412) 513-9335.",
     description:
-      "Plumber in Dormont, PA. Owner-operated Coulehan Plumbing, open 24 hours a day. BBB A+ rated. Call (412) 513-9335.",
+      "Plumber in Dormont, PA. Owner-operated Coulehan Plumbing, open 24 hours a day. BBB A+ rated. Serving Pittsburgh since 2014. Call (412) 513-9335.",
     nearby: ["mt-lebanon", "beechview", "brookline", "banksville"],
   },
   {
@@ -176,7 +176,7 @@ export const towns: readonly Town[] = [
     whyLead: "The company behind a Castle Shannon call is Coulehan Plumbing LLC.",
     callLine: "Call (412) 513-9335 for plumbing in Castle Shannon.",
     description:
-      "Plumbing in Castle Shannon, PA from Coulehan Plumbing. Open 24/7, BBB A+, serving Pittsburgh since 2014. Call (412) 513-9335.",
+      "Plumbing in Castle Shannon, PA from Coulehan Plumbing. Open 24/7, BBB A+, serving Pittsburgh since 2014. Master Plumber. Call (412) 513-9335.",
     nearby: ["mt-lebanon", "whitehall", "bethel-park", "baldwin"],
   },
   {
@@ -191,7 +191,7 @@ export const towns: readonly Town[] = [
     whyLead: "Bethel Park work comes from this owner-operated Pittsburgh company.",
     callLine: "To reach Coulehan Plumbing in Bethel Park, call (412) 513-9335.",
     description:
-      "Plumber in Bethel Park, PA. Coulehan Plumbing LLC, a Master Plumber, owner-operated and open 24/7. Call (412) 513-9335.",
+      "Plumber in Bethel Park, PA. Coulehan Plumbing LLC, a Master Plumber, owner-operated and open 24/7. Serving Pittsburgh since 2014. Call (412) 513-9335.",
     nearby: ["upper-st-clair", "castle-shannon", "whitehall", "peters-township"],
   },
   {
@@ -221,7 +221,7 @@ export const towns: readonly Town[] = [
     whyLead: "Peters Township is on the list, and the company behind it does not change.",
     callLine: "For a plumber in Peters Township, call (412) 513-9335.",
     description:
-      "Plumber in Peters Township, PA. Coulehan Plumbing LLC, Master Plumber, serving Pittsburgh since 2014. Open 24/7. Call (412) 513-9335.",
+      "Plumber in Peters Township, PA. Coulehan Plumbing LLC, Master Plumber, serving Pittsburgh since 2014. Open 24/7. Owner-operated. Call (412) 513-9335.",
     nearby: ["upper-st-clair", "bethel-park", "mt-lebanon"],
   },
 ];
